@@ -83,6 +83,10 @@ function finalizarCelula(matriz, x,y){
     matriz[x][y] = 0;
 }
 
+function celulaEstaViva(matriz, x, y){
+    return matriz[x][y] == 1
+ }
+
 function definirEstadoInicial(matriz, posicoes){
     posicoes.forEach(posicao=>{
         let i = posicao[0];
@@ -173,11 +177,6 @@ function removerCorCelular(x, y){
     let celula = buscarCelulaNoHTML(x,y)
     celula.classList.remove("bg-black");
 }
-
-function celulaEstaViva(matriz, x, y){
-   return matriz[x][y] == 1
-}
-
 
 // ================= JOGO DA VIDA ==========================
 
