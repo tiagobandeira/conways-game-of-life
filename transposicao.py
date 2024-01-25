@@ -1,7 +1,7 @@
 """
-    Trasnposicionar Células
+    Transposição Células
 """
-def transposicionar(lista_posicoes):
+def obterTransposicao(lista_posicoes):
     inicial = lista_posicoes[0]
     saida = "[[x,y],"
     for pos in lista_posicoes[1:]:
