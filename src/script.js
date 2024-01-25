@@ -231,7 +231,7 @@ function rodar(loop=true){
     let MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS)
 
     definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(4,9))
-    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_ACORN(9,15))
+    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_PLANADOR(9,15))
 
     criarGradeNoHTML(MATRIZ_GRADE);
 
