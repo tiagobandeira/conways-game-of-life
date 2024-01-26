@@ -225,9 +225,13 @@ function jogoDaVida(matriz){
 
 // ================= INICIAR JOGO ==========================
 
-function rodar(loop=true){
+
+var iniciar = (loop=true)=>{
     const NUMERO_DE_LINHAS = 15;
     const NUMERO_DE_COLUNAS = 30;
+
+    let intervalo;
+    let rodando = false;
 
     let MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS)
 
@@ -237,9 +241,32 @@ function rodar(loop=true){
     criarGradeNoHTML(MATRIZ_GRADE);
 
     if(loop){
-        setInterval(jogoDaVida, 600, MATRIZ_GRADE)
+        intervalo = setInterval(jogoDaVida, 600, MATRIZ_GRADE)
+        rodando = true
     }
+
+    // ============== Controles =======================
+    this.reiniciar = ()=>{
+        clearInterval(intervalo)
+        iniciar(loop=false)
+    }
+
+    this.rodar = ()=>{
+        if (rodando==false) {
+            intervalo = setInterval(jogoDaVida, 600, MATRIZ_GRADE);
+            rodando = true
+        }
+    }
+    
+    this.pausar = ()=>{
+        if (rodando==true) {
+            clearInterval(intervalo);
+            rodando = false
+        }
+    }
+    
 }
 
 
-rodar(loop=false);
+
+iniciar(loop=false);
