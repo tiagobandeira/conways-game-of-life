@@ -236,6 +236,14 @@ function clicarCelulaHTML(x,y,matriz=MATRIZ_GRADE){
         finalizarCelula(matriz,x,y)
     }
 }
+
+function calcularVelocidadeGeracoes(){
+    var intervaloVelocidade = document.getElementById("intervaloVelocidade")
+    let velocidade = 1000 / parseInt(intervaloVelocidade.value)
+
+    return velocidade
+}
+
 // ================= JOGO DA VIDA ==========================
 
 function jogoDaVida(matriz){
@@ -305,6 +313,7 @@ var iniciar = (loop=true)=>{
     
     let IntervaloID;
     let rodando = false;
+    let velocidade = calcularVelocidadeGeracoes();
 
     definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
 
@@ -312,7 +321,7 @@ var iniciar = (loop=true)=>{
     criarSeletorImagemHTML(mapaImagens)
 
     if(loop){
-        IntervaloID = setInterval(jogoDaVida, 600, MATRIZ_GRADE)
+        IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE)
         rodando = true
     }
 
@@ -324,12 +333,15 @@ var iniciar = (loop=true)=>{
         let valor = buscarValorSeletorImagemHTML();
         let imagem = mapaImagens[valor]
 
+        velocidade = calcularVelocidadeGeracoes();
+
         inicializarGradeHTML(MATRIZ_GRADE, imagem)
     }
 
     this.rodar = ()=>{
         if (rodando==false) {
-            IntervaloID = setInterval(jogoDaVida, 600, MATRIZ_GRADE);
+            velocidade = calcularVelocidadeGeracoes();
+            IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE);
             rodando = true
         }
     }
@@ -340,9 +352,14 @@ var iniciar = (loop=true)=>{
             rodando = false
         }
     }
-    
+
+    this.mudarVelocidade = ()=>{
+        if (rodando == true) {
+            clearInterval(IntervaloID);
+            velocidade = calcularVelocidadeGeracoes();
+            IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE);
+        }
+    }   
 }
-
-
 
 iniciar(loop=false);
