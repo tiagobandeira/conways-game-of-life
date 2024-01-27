@@ -4,22 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conway's Game of Life</title>
-   
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        <h4>Jogo Da Vida</h4>
 
+        <h2>Jogo Da Vida</h2>
+
+    
         <p>Selecione uma imagem inicial:
             <select title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
             </select>
         </p>
-
+        
         <table id="grade"></table>
+        <br/>
         <button type="button" onclick="rodar()">Rodar</button>
         <button type="button" onclick="pausar()">Pausar</button>
         <button type="button" onclick="reiniciar()">Reiniciar</button>
-        
     
 </body>
 <script src="script.js"></script>

@@ -4,11 +4,12 @@ table, tr, td{
     
 }
 
-table tr td{
-    width: 20px;
-    height: 20px;
+table td{
+    width: 50vw;
 }
-
+table tr{
+    height: 3vw;
+}
 .bg-black{
     background-color: black;
 }
