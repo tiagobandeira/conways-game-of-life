@@ -156,9 +156,9 @@ function criarGradeHTML(matriz){
         let colunas = ""
         for (let j = 0; j < matriz[0].length; j++) {
             if (matriz[i][j] == 1) {
-                colunas += "<td class='bg-black'> </td>"      
+                colunas += `<td onclick="clicarCelulaHTML(${i},${j})" class="bg-black"> </td>`    
             }else{ 
-                colunas += "<td> </td>"   
+                colunas += `<td onclick="clicarCelulaHTML(${i},${j})"> </td>`  
             }
         }
         linhas += "<tr>"  + colunas + "</tr>"  
@@ -223,6 +223,19 @@ function celulaEstaViva(matriz, x, y){
 }
 
 
+function clicarCelulaHTML(x,y,matriz=MATRIZ_GRADE){
+
+    let celula = buscarCelulaNoHTML(x,y);
+
+    let celulaEstaViva = celula.classList.contains("bg-black")
+    if(celulaEstaViva == false){
+        adicionarCorCelula(x,y)
+        vitalizarCelula(matriz,x,y)
+    }else{
+        removerCorCelular(x,y)
+        finalizarCelula(matriz,x,y)
+    }
+}
 // ================= JOGO DA VIDA ==========================
 
 function jogoDaVida(matriz){
