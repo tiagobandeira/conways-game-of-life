@@ -353,6 +353,14 @@ var iniciar = (loop=true)=>{
         }
     }
 
+    this.limpar = () =>{
+        clearInterval(IntervaloID)
+        rodando = false
+        
+        inicializarGradeHTML(MATRIZ_GRADE, [])
+
+    }
+
     this.mudarVelocidade = ()=>{
         if (rodando == true) {
             clearInterval(IntervaloID);
