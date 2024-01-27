@@ -75,6 +75,18 @@ function criarMatriz(x,y){
     return M
 }
 
+function limparMatriz(matriz){
+    let numeroDeLinhas = matriz.length;
+    let numeroDeColunas = matriz[0].length
+
+    for (let i = 0; i < numeroDeLinhas; i++) {
+        for (let j = 0; j < numeroDeColunas; j++) {
+            matriz[i][j] = 0;
+       
+        }  
+    }
+}
+
 function vitalizarCelula(matriz, x, y){
     matriz[x][y] = 1;
 }
@@ -115,7 +127,11 @@ const IMAGEM_BOTE = (x,y) => {
     return [[x,y-1],[x,y],[x+1,y-1],[x+1,y+1],[x+2,y]]
 }
 
-// acorn
+const IMAGEM_BLOCO = (x,y) => {
+    return [[x,y],[x+1,y],[x+1,y+1],[x,y+1],]
+}
+
+// sapo
 const IMAGEM_SAPO = (x,y)=>{
     return [[x,y-1],[x,y],[x,y+1],[x-1,y],[x-1,y+1],[x-1,y+2]]
 }
@@ -131,9 +147,9 @@ const IMAGEM_DIEHARD = (x,y)=>{
 }
 
 
-// ================= GRADE NO HTML ==========================
+// ================= GRADE HTML ==========================
 
-function criarGradeNoHTML(matriz){
+function criarGradeHTML(matriz){
     const table = document.getElementById("grade")
     let linhas = ""
     for (let i = 0; i < matriz.length; i++) {     
@@ -150,6 +166,11 @@ function criarGradeNoHTML(matriz){
     table.innerHTML = linhas
 } 
 
+function inicializarGradeHTML(matriz, posCelulasVivas=undefined){
+    limparMatriz(matriz)
+    definirEstadoInicial(matriz,posCelulasVivas)
+    criarGradeHTML(MATRIZ_GRADE)
+}
 
 function buscarCelulaNoHTML(x,y){
     let table = document.getElementById("grade")
@@ -159,6 +180,29 @@ function buscarCelulaNoHTML(x,y){
     let colunas = linha.getElementsByTagName("td");
     let celula = colunas.item(y)
     return celula
+}
+
+function buscarValorSeletorImagemHTML(){
+    return document.getElementById("seletorImagem").value
+
+}
+
+function selecionarImagemHTML(matriz=MATRIZ_GRADE){
+
+    let valor = buscarValorSeletorImagemHTML();
+    let imagem = mapaImagens[valor]
+
+    inicializarGradeHTML(matriz, imagem)
+    reiniciar()
+}
+
+function criarSeletorImagemHTML(mapaPosicoes){
+    let seletorImagem = document.getElementById("seletorImagem")
+    let opcoes = "";
+    for (const key in mapaPosicoes) {
+        opcoes += `<option value="${key}">${key}</option>`
+    }
+    seletorImagem.innerHTML = opcoes
 }
 
 function adicionarCorCelula(x, y){
@@ -225,42 +269,61 @@ function jogoDaVida(matriz){
 
 // ================= INICIAR JOGO ==========================
 
+const NUMERO_DE_LINHAS = 15;
+const NUMERO_DE_COLUNAS = 30;
+
+const POS_X = 5;
+const POS_Y = 13;
+
+const mapaImagens = {
+    nave: IMAGEM_NAVE(POS_X,POS_Y),
+    planador: IMAGEM_PLANADOR(POS_X,POS_Y),
+    acorn: IMAGEM_ACORN(POS_X,POS_Y),
+    diehard: IMAGEM_DIEHARD(POS_X,POS_Y),
+    bote: IMAGEM_BOTE(POS_X,POS_Y), 
+    sapo: IMAGEM_SAPO(POS_X,POS_Y),
+    piscador: IMAGEM_PISCADOR(POS_X,POS_Y),
+    bloco: IMAGEM_BLOCO(POS_X,POS_Y)
+}
+
+var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
 
 var iniciar = (loop=true)=>{
-    const NUMERO_DE_LINHAS = 15;
-    const NUMERO_DE_COLUNAS = 30;
-
-    let intervalo;
+    
+    let IntervaloID;
     let rodando = false;
 
-    let MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS)
+    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
 
-    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(4,9))
-    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_PLANADOR(9,15))
-
-    criarGradeNoHTML(MATRIZ_GRADE);
+    criarGradeHTML(MATRIZ_GRADE);
+    criarSeletorImagemHTML(mapaImagens)
 
     if(loop){
-        intervalo = setInterval(jogoDaVida, 600, MATRIZ_GRADE)
+        IntervaloID = setInterval(jogoDaVida, 600, MATRIZ_GRADE)
         rodando = true
     }
 
     // ============== Controles =======================
     this.reiniciar = ()=>{
-        clearInterval(intervalo)
-        iniciar(loop=false)
+        clearInterval(IntervaloID)
+        rodando = false
+
+        let valor = buscarValorSeletorImagemHTML();
+        let imagem = mapaImagens[valor]
+
+        inicializarGradeHTML(MATRIZ_GRADE, imagem)
     }
 
     this.rodar = ()=>{
         if (rodando==false) {
-            intervalo = setInterval(jogoDaVida, 600, MATRIZ_GRADE);
+            IntervaloID = setInterval(jogoDaVida, 600, MATRIZ_GRADE);
             rodando = true
         }
     }
     
     this.pausar = ()=>{
         if (rodando==true) {
-            clearInterval(intervalo);
+            clearInterval(IntervaloID);
             rodando = false
         }
     }
