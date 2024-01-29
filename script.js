@@ -3,7 +3,7 @@ console.log("==================Jogo da Vida=====================")
 
 // ===================  POSICÃO DAS CELULAS =====================
 
-function obterPosicoesCelulasVizinhas(matriz, x, y, gradeLimitada=true){
+function obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="circular"){
 
     let numeroDeLinhas = matriz.length;
     let numeroDeColunas = matriz[0].length
@@ -18,13 +18,25 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, gradeLimitada=true){
         inferiorEsquerda: [x+1,y-1],
         inferiorDireita: [x+1,y+1]
     }
+    let arrayOrientacoes = [];
 
-    const arrayOrientacoes = [];
-    for (const chave in orientacoes) {
-        let i = orientacoes[chave][0];
-        let j = orientacoes[chave][1];
-        
-        if (gradeLimitada==false) {
+
+    if (tipoGrade=="limitada") {
+       
+        for (const chave in orientacoes) {
+            let i = orientacoes[chave][0];
+            let j = orientacoes[chave][1];
+            arrayOrientacoes.push([i,j])
+    
+        }
+    }
+    
+    if (tipoGrade=="circular") {
+        for (const chave in orientacoes) {
+            let i = orientacoes[chave][0];
+            let j = orientacoes[chave][1];
+
+           
             if (i > numeroDeLinhas-1) {
                 i = 0;
             }
@@ -37,10 +49,41 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, gradeLimitada=true){
             if (j < 0) {
                 j = numeroDeColunas-1
             } 
+            
+            arrayOrientacoes.push([i,j])
         }
-       
-        arrayOrientacoes.push([i,j])
     }
+
+
+    if (tipoGrade=="ilimitada") { 
+        
+        let passouDoLimite = false;
+    
+        for (const chave in orientacoes) {
+            let i = orientacoes[chave][0];
+            let j = orientacoes[chave][1];
+            
+            if (i > numeroDeLinhas-1 || i < 0 || j > numeroDeColunas-1 || j < 0) {
+                if (celulaEstaViva(matriz,x,y)) {
+                    passouDoLimite = true
+                    break
+                }
+            }
+        }
+    
+        if (passouDoLimite) {
+            aumentarTamanhoGrade(3)
+            
+        }
+        for (const chave in orientacoes) {
+            let i = orientacoes[chave][0];
+            let j = orientacoes[chave][1];
+            arrayOrientacoes.push([i,j])
+            
+        }
+    }
+   
+
     return arrayOrientacoes
 
 }
@@ -49,7 +92,7 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, gradeLimitada=true){
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
 function contarCelulasVizinhasVivas(matriz, x, y){          
-    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,gradeLimitada=false);
+    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="ilimitada");
     let contador = 0;
 
     celulasVisinhas.forEach(celula => {
@@ -103,7 +146,17 @@ function definirEstadoInicial(matriz, posicoes){
     })
 }
 
+// function atualizarMatriz(matriz, novaMatriz){
+//     let numeroDeLinhas = matriz.length;
+//     let numeroDeColunas = matriz[0].length
 
+//     for (let i = 0; i < numeroDeLinhas; i++) {
+//         for (let j = 0; j < numeroDeColunas; j++) {
+//             matriz[i][j] = novaMatriz[i][j];
+       
+//         }  
+//     }
+// }
 
 // ================= ESTADOS INICIAIS ==========================
 
@@ -151,14 +204,16 @@ const IMAGEM_DIEHARD = (x,y)=>{
 
 function criarGradeHTML(matriz){
     const table = document.getElementById("grade")
-    let linhas = ""
+    let linhas = "";
+    let quadrado = "";
     for (let i = 0; i < matriz.length; i++) {     
         let colunas = ""
         for (let j = 0; j < matriz[0].length; j++) {
+            quadrado = `<div class="box" onclick="clicarCelulaHTML(${i},${j})"></div>`
             if (matriz[i][j] == 1) {
-                colunas += `<td onclick="clicarCelulaHTML(${i},${j})" class="bg-black"> </td>`    
+                colunas += `<td class="bg-black">${quadrado}</td>`    
             }else{ 
-                colunas += `<td onclick="clicarCelulaHTML(${i},${j})"> </td>`  
+                colunas += `<td>${quadrado}</td>`  
             }
         }
         linhas += "<tr>"  + colunas + "</tr>"  
@@ -169,7 +224,7 @@ function criarGradeHTML(matriz){
 function inicializarGradeHTML(matriz, posCelulasVivas=undefined){
     limparMatriz(matriz)
     definirEstadoInicial(matriz,posCelulasVivas)
-    criarGradeHTML(MATRIZ_GRADE)
+    criarGradeHTML(matriz)
 }
 
 function buscarCelulaNoHTML(x,y){
@@ -244,6 +299,27 @@ function calcularVelocidadeGeracoes(){
     return velocidade
 }
 
+function aumentarTamanhoGrade(valor, matriz=MATRIZ_GRADE){
+    
+    let novoX = matriz.length + valor
+    let novoY = matriz[0].length + valor
+
+    let novaMatriz = criarMatriz(novoX, novoY);
+    
+    for (let i = 0; i < matriz.length; i++) {
+        for (let j = 0; j < matriz[0].length; j++) {
+
+            novaMatriz[i+1][j+1] = matriz[i][j] 
+        }
+    }
+
+    pausar()
+    limpar()
+    MATRIZ_GRADE = novaMatriz
+    criarGradeHTML(MATRIZ_GRADE)
+    rodar() 
+}
+
 // ================= JOGO DA VIDA ==========================
 
 function jogoDaVida(matriz){
@@ -290,11 +366,11 @@ function jogoDaVida(matriz){
 
 // ================= INICIAR JOGO ==========================
 
-const NUMERO_DE_LINHAS = 15;
-const NUMERO_DE_COLUNAS = 30;
+const NUMERO_DE_LINHAS = 10;
+const NUMERO_DE_COLUNAS = 20;
 
-const POS_X = 5;
-const POS_Y = 13;
+const POS_X = parseInt(NUMERO_DE_LINHAS / 2) - 1;
+const POS_Y = parseInt(NUMERO_DE_COLUNAS / 2) -1;
 
 const mapaImagens = {
     nave: IMAGEM_NAVE(POS_X,POS_Y),
