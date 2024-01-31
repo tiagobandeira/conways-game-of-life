@@ -253,15 +253,15 @@ const IMAGEM_DIEHARD = (x,y)=>{
 function criarGradeHTML(matriz){
     const table = document.getElementById("grade")
     let linhas = "";
-    let quadrado = "";
+    let celula = "";
     for (let i = 0; i < matriz.length; i++) {     
         let colunas = ""
         for (let j = 0; j < matriz[0].length; j++) {
-            quadrado = `<div class="box" onclick="clicarCelulaHTML(${i},${j})"></div>`
+            celula = `<div class="cell" onclick="clicarCelulaHTML(${i},${j})"></div>`
             if (matriz[i][j] == 1) {
-                colunas += `<td class="bg-black">${quadrado}</td>`    
+                colunas += `<td class="bg-black">${celula}</td>`    
             }else{ 
-                colunas += `<td>${quadrado}</td>`  
+                colunas += `<td>${celula}</td>`  
             }
         }
         linhas += "<tr>"  + colunas + "</tr>"  
