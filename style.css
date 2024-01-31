@@ -15,3 +15,8 @@ table td{
 .bg-black{
     background-color: black;
 }
+
+.border{
+    border: 2px solid black;
+    border-style: dashed;
+}

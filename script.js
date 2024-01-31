@@ -113,7 +113,7 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade="circular"){
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
 function contarCelulasVizinhasVivas(matriz, x, y){          
-    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="circular");
+    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade=TIPO_GRADE);
     let contador = 0;
 
     celulasVisinhas.forEach(celula => {
@@ -308,6 +308,37 @@ function criarSeletorImagemHTML(mapaPosicoes){
     seletorImagem.innerHTML = opcoes
 }
 
+function selecionarTipoGradeHTML(){
+    let valor = document.getElementById("seletorTipoGrade").value
+    let table = document.getElementById("grade")
+    let tipoBorda = ""
+    
+    TIPO_GRADE = valor
+    table.classList.remove("border")
+
+    if (TIPO_GRADE == "limitada") {
+        tipoBorda = "solid"
+    }
+    if(TIPO_GRADE=="circular"){
+        tipoBorda = "dashed"
+    }
+    
+
+    table.style.border = tipoBorda
+}
+
+function criarSeletorTipoGradeHTML(){
+    let seletorTipoGrade = document.getElementById("seletorTipoGrade")
+    let tipoGrade = ["circular", "limitada","ilimitada"]
+    let opcoes = "";
+    tipoGrade.forEach(tipo => {
+        opcoes += `<option value="${tipo}">${tipo}</option>`
+    });
+
+    seletorTipoGrade.innerHTML = opcoes
+}
+
+
 function adicionarCorCelula(x, y){
     
     let celula = buscarCelulaNoHTML(x,y)
@@ -421,6 +452,8 @@ const mapaImagens = {
 
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
 
+var TIPO_GRADE = "circular"
+
 var iniciar = (loop=true)=>{
     
     let IntervaloID;
@@ -431,6 +464,7 @@ var iniciar = (loop=true)=>{
 
     criarGradeHTML(MATRIZ_GRADE);
     criarSeletorImagemHTML(mapaImagens)
+    criarSeletorTipoGradeHTML()
 
     if(loop){
         IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE)

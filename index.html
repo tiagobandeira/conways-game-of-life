@@ -11,22 +11,29 @@
 
         <h2>Jogo Da Vida</h2>
 
-    
-        <p>Selecione uma imagem inicial:
-            <select title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
-            </select>
-        </p>
-        
-        <table id="grade"></table>
+        <div style="border: 1px solid #ccc; padding: 1em;">
+            <b>Configurações:</b>
+            <p>Selecione uma imagem inicial:
+                <select title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
+                </select>
+            </p>
+            <p>Tipo de grade:
+                <select title="Tipo de grade" id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()">
+                </select>
+            </p>
+            <p>Velocidade:
+                <input title="Intervalo de velocidade" type="range" name="" onchange="mudarVelocidade()" id="intervaloVelocidade" min="1" max="10" step="1">
+            </p>
+
+        </div>
         <br/>
         <button type="button" onclick="rodar()">Rodar</button>
         <button type="button" onclick="pausar()">Pausar</button>
         <button type="button" onclick="reiniciar()">Reiniciar</button>
         <button type="button" onclick="limpar()">Limpar</button>
-        <br/>
-        <p>Velocidade:
-            <input title="Intervalo de velocidade" type="range" name="" onchange="mudarVelocidade()" id="intervaloVelocidade" min="1" max="10" step="1">
-        </p>
+        <br/><br/>
+        <table id="grade" class="border"></table>
+        
 </body>
 <script src="script.js"></script>
 </html>
