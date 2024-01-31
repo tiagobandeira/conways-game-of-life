@@ -3,11 +3,7 @@ console.log("==================Jogo da Vida=====================")
 
 // ===================  POSICÃO DAS CELULAS =====================
 
-function obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="circular"){
-
-    let numeroDeLinhas = matriz.length;
-    let numeroDeColunas = matriz[0].length
-
+function obterTodasPosicoesAdjacentes(x,y){
     let orientacoes = {
         direita: [x,y+1],
         esquerda: [x,y-1],
@@ -18,81 +14,106 @@ function obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="circular"){
         inferiorEsquerda: [x+1,y-1],
         inferiorDireita: [x+1,y+1]
     }
-    let arrayOrientacoes = [];
 
+    return Object.values(orientacoes)
+}
 
-    if (tipoGrade=="limitada") {
-       
-        for (const chave in orientacoes) {
-            let i = orientacoes[chave][0];
-            let j = orientacoes[chave][1];
-            arrayOrientacoes.push([i,j])
+function obterPosicoesCelulasVizinhasGradeIlimitada(matriz, x,y){
+    const numeroDeLinhas = matriz.length;
+    const numeroDeColunas = matriz[0].length
+
+    let celulaEstaViva = matriz[x][y] == 1
     
+    let celulaEstaNaBorda = (
+        x == 0 || x == numeroDeLinhas-1 || 
+        y == 0 || y == numeroDeColunas-1
+    )
+
+    
+    if (celulaEstaViva && celulaEstaNaBorda) {
+
+        let novaMatriz = criarCopiarMatriz(matriz)
+
+        if (x == 0) {
+            adicionarLinhaSuperiorMatriz(novaMatriz)
+            x = 1
         }
+        if (x==numeroDeLinhas-1) {
+            adicionarLinhaInferiorMatriz(novaMatriz)
+        }
+        if (y==0) {
+            adicionarColunaEsquerdaMatriz(novaMatriz)
+            y = 1
+        }
+        if (y==numeroDeColunas -1) {
+            adicionarColunaDireitaMatriz(novaMatriz)
+        }
+
+        atualizarTamanhoGradeDinamicamente(matriz=novaMatriz)
     }
-    
-    if (tipoGrade=="circular") {
-        for (const chave in orientacoes) {
-            let i = orientacoes[chave][0];
-            let j = orientacoes[chave][1];
 
-           
-            if (i > numeroDeLinhas-1) {
-                i = 0;
-            }
-            if (i < 0) {
-                i = numeroDeLinhas-1
-            }
-            if (j > numeroDeColunas-1) {
-                j = 0;
-            }
-            if (j < 0) {
-                j = numeroDeColunas-1
-            } 
-            
-            arrayOrientacoes.push([i,j])
-        }
-    }
-
-
-    if (tipoGrade=="ilimitada") { 
-        
-        let passouDoLimite = false;
-    
-        for (const chave in orientacoes) {
-            let i = orientacoes[chave][0];
-            let j = orientacoes[chave][1];
-            
-            if (i > numeroDeLinhas-1 || i < 0 || j > numeroDeColunas-1 || j < 0) {
-                if (celulaEstaViva(matriz,x,y)) {
-                    passouDoLimite = true
-                    break
-                }
-            }
-        }
-    
-        if (passouDoLimite) {
-            aumentarTamanhoGrade(3)
-            
-        }
-        for (const chave in orientacoes) {
-            let i = orientacoes[chave][0];
-            let j = orientacoes[chave][1];
-            arrayOrientacoes.push([i,j])
-            
-        }
-    }
-   
+    let arrayOrientacoes = obterTodasPosicoesAdjacentes(x,y);
 
     return arrayOrientacoes
 
+
+}
+
+
+function obterPosicoesCelulasVizinhasGradeLimitada(x,y){
+
+    let arrayOrientacoes = obterTodasPosicoesAdjacentes(x,y)
+
+    return arrayOrientacoes
+
+}
+
+function obterPosicoesCelulasVizinhasGradeCircular(matriz,x,y){
+    const numeroDeLinhas = matriz.length
+    const numeroDeColunas = matriz[0].length
+  
+
+    let arrayOrientacoes = obterTodasPosicoesAdjacentes(x,y);
+
+    for (let i = 0; i < arrayOrientacoes.length; i++) {
+       let x = arrayOrientacoes[i][0]
+       let y = arrayOrientacoes[i][1]
+
+       if (x > numeroDeLinhas-1) {
+            x = 0;
+        }
+        if (x < 0) {
+            x = numeroDeLinhas-1
+        }
+        if (y > numeroDeColunas-1) {
+            y = 0;
+        }
+        if (y < 0) {
+            y = numeroDeColunas-1
+        } 
+
+        arrayOrientacoes[i][0] = x
+        arrayOrientacoes[i][1] = y
+       
+    }
+
+    return  arrayOrientacoes
+}
+
+function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade="circular"){
+
+    if (tipoGrade == "circular") { return obterPosicoesCelulasVizinhasGradeCircular(matriz, x, y)}
+    
+    if (tipoGrade == "limitada") { return obterPosicoesCelulasVizinhasGradeLimitada(x,y)}
+
+    if(tipoGrade == "ilimitada"){ return obterPosicoesCelulasVizinhasGradeIlimitada(matriz,x,y)}
 }
 
 
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
 function contarCelulasVizinhasVivas(matriz, x, y){          
-    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="ilimitada");
+    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade="circular");
     let contador = 0;
 
     celulasVisinhas.forEach(celula => {
@@ -146,17 +167,44 @@ function definirEstadoInicial(matriz, posicoes){
     })
 }
 
-// function atualizarMatriz(matriz, novaMatriz){
-//     let numeroDeLinhas = matriz.length;
-//     let numeroDeColunas = matriz[0].length
 
-//     for (let i = 0; i < numeroDeLinhas; i++) {
-//         for (let j = 0; j < numeroDeColunas; j++) {
-//             matriz[i][j] = novaMatriz[i][j];
-       
-//         }  
-//     }
-// }
+function adicionarColunaEsquerdaMatriz(matriz){
+    for (let i = 0; i < matriz.length; i++) {
+        matriz[i].unshift(0) 
+    }
+}
+
+function adicionarColunaDireitaMatriz(matriz){
+   
+    for (let i = 0; i < matriz.length; i++) {
+        matriz[i].push(0)
+    }
+}
+
+function adicionarLinhaSuperiorMatriz(matriz){
+    matriz.unshift(new Array(matriz[0].length))
+
+}
+
+function adicionarLinhaInferiorMatriz(matriz){
+    matriz.push(new Array(matriz[0].length))
+}
+
+
+function criarCopiarMatriz(matriz){
+    let numeroDeLinhas = matriz.length
+    let numeroDeColunas = matriz[0].length
+    let matrizCopia = criarMatriz(numeroDeLinhas, numeroDeColunas)
+
+    for (let i = 0; i < numeroDeLinhas; i++) {
+        for (let j = 0; j < numeroDeColunas; j++) {
+            matrizCopia[i][j] = matriz[i][j]
+            
+        }
+    }
+
+    return matrizCopia
+}
 
 // ================= ESTADOS INICIAIS ==========================
 
@@ -299,24 +347,12 @@ function calcularVelocidadeGeracoes(){
     return velocidade
 }
 
-function aumentarTamanhoGrade(valor, matriz=MATRIZ_GRADE){
+function atualizarTamanhoGradeDinamicamente( matriz=MATRIZ_GRADE){
     
-    let novoX = matriz.length + valor
-    let novoY = matriz[0].length + valor
-
-    let novaMatriz = criarMatriz(novoX, novoY);
-    
-    for (let i = 0; i < matriz.length; i++) {
-        for (let j = 0; j < matriz[0].length; j++) {
-
-            novaMatriz[i+1][j+1] = matriz[i][j] 
-        }
-    }
-
     pausar()
     limpar()
-    MATRIZ_GRADE = novaMatriz
-    criarGradeHTML(MATRIZ_GRADE)
+    criarGradeHTML(matriz)
+    MATRIZ_GRADE = matriz
     rodar() 
 }
 
@@ -361,7 +397,7 @@ function jogoDaVida(matriz){
        
         }  
     }
-   
+
 }
 
 // ================= INICIAR JOGO ==========================
