@@ -433,8 +433,8 @@ function jogoDaVida(matriz){
 
 // ================= INICIAR JOGO ==========================
 
-const NUMERO_DE_LINHAS = 10;
-const NUMERO_DE_COLUNAS = 20;
+const NUMERO_DE_LINHAS = 15;
+const NUMERO_DE_COLUNAS = 30;
 
 const POS_X = parseInt(NUMERO_DE_LINHAS / 2) - 1;
 const POS_Y = parseInt(NUMERO_DE_COLUNAS / 2) -1;
@@ -480,8 +480,10 @@ var iniciar = (loop=true)=>{
         let imagem = mapaImagens[valor]
 
         velocidade = calcularVelocidadeGeracoes();
-
+        
+        MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS)
         inicializarGradeHTML(MATRIZ_GRADE, imagem)
+
     }
 
     this.rodar = ()=>{
