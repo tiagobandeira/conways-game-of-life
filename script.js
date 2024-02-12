@@ -259,7 +259,7 @@ function criarGradeHTML(matriz){
         for (let j = 0; j < matriz[0].length; j++) {
             celula = `<div class="cell" onclick="clicarCelulaHTML(${i},${j})"></div>`
             if (matriz[i][j] == 1) {
-                colunas += `<td class="bg-black">${celula}</td>`    
+                colunas += `<td class="bg-color">${celula}</td>`    
             }else{ 
                 colunas += `<td>${celula}</td>`  
             }
@@ -342,14 +342,14 @@ function criarSeletorTipoGradeHTML(){
 function adicionarCorCelula(x, y){
     
     let celula = buscarCelulaNoHTML(x,y)
-    celula.classList.add("bg-black");
+    celula.classList.add("bg-color");
     
 }
 
 function removerCorCelular(x, y){
     
     let celula = buscarCelulaNoHTML(x,y)
-    celula.classList.remove("bg-black");
+    celula.classList.remove("bg-color");
 }
 
 function celulaEstaViva(matriz, x, y){
@@ -359,10 +359,8 @@ function celulaEstaViva(matriz, x, y){
 
 function clicarCelulaHTML(x,y,matriz=MATRIZ_GRADE){
 
-    let celula = buscarCelulaNoHTML(x,y);
-
-    let celulaEstaViva = celula.classList.contains("bg-black")
-    if(celulaEstaViva == false){
+    let celulaViva = celulaEstaViva(matriz,x,y);
+    if(celulaViva == false){
         adicionarCorCelula(x,y)
         vitalizarCelula(matriz,x,y)
     }else{
@@ -385,6 +383,25 @@ function atualizarTamanhoGradeDinamicamente( matriz=MATRIZ_GRADE){
     criarGradeHTML(matriz)
     MATRIZ_GRADE = matriz
     rodar() 
+}
+
+
+function aumentarZoom(){
+    var table = document.getElementById("grade");
+    if (ZOOM > 140) {
+        return;
+    }
+    ZOOM += 10
+    table.style.zoom = `${ZOOM}%`
+}
+
+function diminuirZoom(){
+    var table = document.getElementById("grade");
+    if (ZOOM == 10) {
+        return;
+    }
+    ZOOM -= 10
+    table.style.zoom = `${ZOOM}%`
 }
 
 // ================= JOGO DA VIDA ==========================
@@ -433,8 +450,9 @@ function jogoDaVida(matriz){
 
 // ================= INICIAR JOGO ==========================
 
+
 const NUMERO_DE_LINHAS = 15;
-const NUMERO_DE_COLUNAS = 30;
+const NUMERO_DE_COLUNAS = 15;
 
 const POS_X = parseInt(NUMERO_DE_LINHAS / 2) - 1;
 const POS_Y = parseInt(NUMERO_DE_COLUNAS / 2) -1;
@@ -453,6 +471,8 @@ const mapaImagens = {
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
 
 var TIPO_GRADE = "circular"
+
+var ZOOM = 100;
 
 var iniciar = (loop=true)=>{
     

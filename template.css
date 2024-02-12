@@ -1,0 +1,270 @@
+/*
+    TEMPLATE STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+   
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #455A64;
+    color: #fff;
+    transition: all 0.3s;
+    z-index: 6;
+   
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #37474F;
+}
+
+#sidebar ul.controls {
+    background: #263238;
+    padding: 20px 0;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#dismiss {
+    visibility: hidden;
+    width: 2em;
+    height: 2em;
+    line-height: 35px;
+    text-align: center;
+    background: #455A64;
+    position: absolute;
+    top: 15px;
+    right: 5px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 1em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+ul.CTAs a i{
+    margin: 3px;
+}
+
+a.code {
+    background: #fff;
+    color: #095169;
+}
+
+a.code:hover {
+    background: #263238 !important;
+    color: #fff !important;
+}
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 5px 5px 0px 5px;
+    min-height: 100vh; 
+    transition: all 0.3s;
+    overflow: auto;
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+        position: fixed; 
+        min-height: 100vh;
+        z-index: 999;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #content {
+        position: absolute;
+        top: 0;
+        right: 0;
+        justify-content: start;
+        align-items: center;
+    }
+    #dismiss{
+        visibility:visible;
+    }
+
+    #nav-footer{
+        margin: 0;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+
+/* ---------------------------------------------------
+    TABLE
+----------------------------------------------------- */
+
+#table-container{
+    width: 100%; 
+    overflow: scroll; 
+    height: 80vh;
+    margin-bottom: 0;
+
+    display: flex;
+    align-items: center;
+}
+table, tr, td{
+    border: solid 1px #263238;
+    border-collapse: collapse;
+}
+
+#grade{
+    margin: auto;
+}
+
+.cell{
+    width: 20px;
+    height: 20px;
+}
+
+.bg-color{
+    background-color: #263238 !important;
+}
+.bg .blue-gray-900{
+    background-color: #263238;
+}
+.bg .blue-gray-800{
+    background-color: #37474F;
+}
+.bg .blue-gray-700{
+    background-color: #455A64;
+}
+.bg .black-gray-600{
+    background-color: #455A64;
+}
+
+#nav-footer{
+    background-color: #263238; 
+    z-index: 1; 
+    margin: 0; 
+    padding: 0px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+#nav-footer .btn {
+    border-radius: 0px;
+    padding: 0.70rem 1.79rem;
+    background-color: #263238; 
+    border-color: #263238;
+}
+
+#nav-top{
+    width: 100%;
+}
+#nav-top .btn{
+    background-color: #263238; 
+    border-color: #263238;
+}
+
+#sidebar-collapse{
+    background-color: #059b9a; 
+    border-color: #059b9a; 
+    color: white;
+}

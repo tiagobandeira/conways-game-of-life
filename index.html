@@ -4,36 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conway's Game of Life</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-        <h2>Jogo Da Vida</h2>
-
-        <div style="border: 1px solid #ccc; padding: 1em;">
-            <b>Configurações:</b>
-            <p>Selecione uma imagem inicial:
-                <select title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
-                </select>
-            </p>
-            <p>Tipo de grade:
-                <select title="Tipo de grade" id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()">
-                </select>
-            </p>
-            <p>Velocidade:
-                <input title="Intervalo de velocidade" type="range" name="" onchange="mudarVelocidade()" id="intervaloVelocidade" min="1" max="10" step="1">
-            </p>
-
+        <div class="container ">
+            <h3>Jogo Da Vida</h3>
+            <div class="border shadow-none p-3 mb-5 bg-light rounded">
+                <div class="row row-cols-1 row-cols-sm-2" >
+                    <div class="col-4">
+                      
+                            <b>Configurações:</b>
+                            <p>Selecione uma imagem inicial:
+                                <select class="form-select" title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
+                                </select>
+                            </p>
+                            <p>Tipo de grade:
+                                <select class="form-select" title="Tipo de grade" id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()">
+                                </select>
+                            </p>
+                            <p>Velocidade:
+                                <input title="Intervalo de velocidade" type="range" name="" onchange="mudarVelocidade()" id="intervaloVelocidade" min="1" max="10" step="1">
+                            </p>
+                
+                        
+                    </div>
+                    <div class="col-8">
+                       <p>
+                           <b>Regras do Jogo da Vida</b>
+                       </p>
+                       <table id="grade" class="border"></table>
+                    </div>
+                </div>
+            </div>
+           
+           
+            <!-- <button type="button" onclick="rodar()">Rodar</button>
+            <button type="button" onclick="pausar()">Pausar</button>
+            <button type="button" onclick="reiniciar()">Reiniciar</button>
+            <button type="button" onclick="limpar()">Limpar</button> -->
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2" role="group" aria-label="Second group">
+                    <button type="button" class="btn btn-outline-secondary" onclick="rodar()">Rodar</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="pausar()">Pausar</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="reiniciar()">Reiniciar</button>
+                    <button type="button" class="btn btn-outline-secondary" onclick="limpar()">Limpar</button>
+                </div>
+              </div>
+            <br/>
+            <!-- <table id="grade" class="border"></table> -->
         </div>
-        <br/>
-        <button type="button" onclick="rodar()">Rodar</button>
-        <button type="button" onclick="pausar()">Pausar</button>
-        <button type="button" onclick="reiniciar()">Reiniciar</button>
-        <button type="button" onclick="limpar()">Limpar</button>
-        <br/><br/>
-        <table id="grade" class="border"></table>
         
 </body>
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </html>

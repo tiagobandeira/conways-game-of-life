@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Jogo Da Vida</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="template.css">
+    <!-- Font Awesome JS -->
+    <script src="https://kit.fontawesome.com/2799c027de.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <div class="sidebar-header">
+                <h4>Jogo Da Vida</h4>
+            </div>
+
+            <ul class="list-unstyled controls">
+                <p>Configurações</p>
+                <li>
+                    <label for="labelImagem" class="form-label">Imagem</label>
+                    <select id="seletorImagem" onchange="selecionarImagemHTML()" class="form-select" aria-label="Imagem" name=""></select>
+                </li>
+                <li>
+                    <label for="labelTipoGrade" class="form-label">Tipo de Grade</label>
+                    <select id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()" class="form-select" aria-label="Tipo de Grade" name=""></select>
+                </li>
+                <li>
+                    <label for="labelVelocidade" class="form-label">Velocidade</label>
+                    <input id="intervaloVelocidade" onchange="mudarVelocidade()" type="range" class="form-range" min="1" max="10" step="1" id="customRange3">
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://github.com/tiagobandeira/conways-game-of-life" class="btn code"><i class="fa-brands fa-github"></i>Código</a>
+                </li>
+            </ul>
+           
+        </nav>
+       
+        <!-- Page Content  -->
+        <div id="content">
+            <!-- Navbar Top -->
+            <nav id="nav-top" class="navbar navbar-expand-lg navbar-dark justify-content-between">
+                <button type="button" id="sidebar-collapse" class="btn btn-dark">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+                <div class="btn-group"  role="group" aria-label="Zoom">
+                    <button type="button" class="btn btn-dark" onclick="diminuirZoom()"> <i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                    <button type="button" class="btn btn-dark" onclick="aumentarZoom()"> <i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                </div>
+            </nav>
+            <!-- Table -->
+            <div id="table-container" >
+                <table id="grade"></table>
+            </div>
+            <!-- Navbar Bottom -->
+            <nav id="nav-footer" class="navbar navbar-light">
+                <div class="btn-group"  role="group" aria-label="Controls">
+                    <button type="button" class="btn btn-dark" onclick="rodar()"> <i class="fa-solid fa-play"></i></button>
+                    <button type="button" class="btn btn-dark" onclick="pausar()"> <i class="fa-solid fa-stop"></i></button>
+                    <button type="button" class="btn btn-dark" onclick="reiniciar()"> <i class="fa-solid fa-arrow-rotate-left"></i></button>
+                    <button type="button" class="btn btn-dark" onclick="limpar()"> <i class="fa-solid fa-trash"></i></button>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="overlay"></div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
+    <!-- Scripts -->
+    <script src="sidebar.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
