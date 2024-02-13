@@ -77,8 +77,9 @@ a:focus {
 }
 
 #sidebar ul p {
-    color: #fff;
-    padding: 10px;
+    color: rgb(255 255 255 / 55%);
+    padding: 8px;
+    margin: auto;
 }
 
 #sidebar ul li {
