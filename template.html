@@ -30,16 +30,22 @@
             <ul class="list-unstyled controls">
                 <p>Configurações</p>
                 <li>
-                    <label for="labelImagem" class="form-label">Imagem</label>
-                    <select id="seletorImagem" onchange="selecionarImagemHTML()" class="form-select" aria-label="Imagem" name=""></select>
-                </li>
-                <li>
-                    <label for="labelTipoGrade" class="form-label">Tipo de Grade</label>
+                    <label for="seletorTipoGrade" class="form-label">Tipo de Grade</label>
                     <select id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()" class="form-select" aria-label="Tipo de Grade" name=""></select>
                 </li>
                 <li>
-                    <label for="labelVelocidade" class="form-label">Velocidade</label>
-                    <input id="intervaloVelocidade" onchange="mudarVelocidade()" type="range" class="form-range" min="1" max="10" step="1" id="customRange3">
+                    <label for="seletorImagem" class="form-label">Imagem</label>
+                    <select id="seletorImagem" onchange="selecionarImagemHTML()" class="form-select" aria-label="Imagem" name=""></select>
+                </li>
+                <li>
+                    <label for="intervaloVelocidade" class="form-label">Velocidade</label>
+                    <input id="intervaloVelocidade" onchange="mudarVelocidade()" type="range" class="form-range" min="1" max="10" step="1">
+                </li>
+                <li>
+                    <div class="form-check form-switch">
+                        <label for="chequeExibirGrade" class="form-check-label">Exibir Grade</label>
+                        <input  id="chequeExibirGrade" onchange="vizualizarGrade()" class="form-check-input" role="switch" type="checkbox" value=""  checked>
+                    </div>
                 </li>
             </ul>
 

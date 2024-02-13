@@ -409,6 +409,17 @@ function diminuirZoom(){
     table.style.zoom = `${ZOOM}%`
 }
 
+function vizualizarGrade() {
+    var cheque = document.getElementById("chequeExibirGrade");
+    var table  = document.getElementById("grade");
+
+    if (cheque.checked) {
+        table.classList.add("visible-grid")
+    }else{
+        table.classList.remove("visible-grid")
+    }
+}
+
 // ================= JOGO DA VIDA ==========================
 
 async function jogoDaVida(matriz){
@@ -483,6 +494,7 @@ definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
 criarGradeHTML(MATRIZ_GRADE);
 criarSeletorImagemHTML(mapaImagens)
 criarSeletorTipoGradeHTML()
+vizualizarGrade()
 
 var iniciar = (rodando = true) => {
     let velocidade = calcularVelocidadeGeracoes();

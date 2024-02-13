@@ -82,9 +82,29 @@ a:focus {
     margin: auto;
 }
 
+#sidebar ul.controls .form-check-input:checked{
+    background-color: #37474f;
+    border-color: #344148;
+}
+
+#sidebar ul.controls .form-check-input{
+    font-size: large;
+}
+
+#sidebar ul.controls .form-check{
+    display: flex;
+    justify-content: space-between; 
+    padding: 0; 
+}
+
+#sidebar ul.controls .form-check label{
+    width: 100%;
+}
+
+
 #sidebar ul li {
     padding: 10px;
-    font-size: 1.1em;
+    font-size: 1.0em;
     display: block;
 }
 
@@ -172,6 +192,10 @@ a.code:hover {
         z-index: 999;
     }
 
+    #sidebar ul li {
+        font-size: 1.1em;
+    }
+
     #sidebar.active {
         margin-left: 0;
     }
@@ -210,9 +234,18 @@ a.code:hover {
     display: flex;
     align-items: center;
 }
+
 table, tr, td{
-    border: solid 1px #263238;
+    border-collapse:separate;
+    border: none;
+}
+
+.visible-grid{
     border-collapse: collapse;
+}
+
+.visible-grid td{
+    border: solid 1px #263238;
 }
 
 #grade{
