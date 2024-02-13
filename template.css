@@ -54,7 +54,7 @@ a:focus {
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #455A64;
+    background: #263238;
     color: #fff;
     transition: all 0.3s;
     z-index: 6;
@@ -73,6 +73,7 @@ a:focus {
 #sidebar ul.controls {
     background: #263238;
     padding: 20px 0;
+    border-bottom: 1px solid rgb(55 71 79 / 37%);
 }
 
 #sidebar ul p {
@@ -138,7 +139,7 @@ a.code {
 }
 
 a.code:hover {
-    background: #263238 !important;
+    background: #212c31 !important;
     color: #fff !important;
 }
 /* ---------------------------------------------------
