@@ -18,7 +18,7 @@ function obterTodasPosicoesAdjacentes(x,y){
     return Object.values(orientacoes)
 }
 
-function obterPosicoesCelulasVizinhasGradeIlimitada(matriz, x,y){
+async function obterPosicoesCelulasVizinhasGradeIlimitada(matriz, x,y){
     const numeroDeLinhas = matriz.length;
     const numeroDeColunas = matriz[0].length
 
@@ -49,7 +49,7 @@ function obterPosicoesCelulasVizinhasGradeIlimitada(matriz, x,y){
             adicionarColunaDireitaMatriz(novaMatriz)
         }
 
-        atualizarTamanhoGradeDinamicamente(matriz=novaMatriz)
+        await atualizarTamanhoGradeDinamicamente(matriz=novaMatriz)
     }
 
     let arrayOrientacoes = obterTodasPosicoesAdjacentes(x,y);
@@ -106,14 +106,16 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade="circular"){
     
     if (tipoGrade == "limitada") { return obterPosicoesCelulasVizinhasGradeLimitada(x,y)}
 
-    if(tipoGrade == "ilimitada"){ return obterPosicoesCelulasVizinhasGradeIlimitada(matriz,x,y)}
+    if(tipoGrade == "ilimitada"){ return new Promise((resolve, reject) => 
+        resolve(obterPosicoesCelulasVizinhasGradeIlimitada(matriz,x,y))
+    )}
 }
 
 
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
-function contarCelulasVizinhasVivas(matriz, x, y){          
-    let celulasVisinhas = obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade=TIPO_GRADE);
+async function contarCelulasVizinhasVivas(matriz, x, y){          
+    let celulasVisinhas = await obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade=TIPO_GRADE);
     let contador = 0;
 
     celulasVisinhas.forEach(celula => {
@@ -371,18 +373,16 @@ function clicarCelulaHTML(x,y,matriz=MATRIZ_GRADE){
 
 function calcularVelocidadeGeracoes(){
     var intervaloVelocidade = document.getElementById("intervaloVelocidade")
-    let velocidade = 1000 / parseInt(intervaloVelocidade.value)
+    let velocidade = 700 / parseInt(intervaloVelocidade.value)
 
     return velocidade
 }
 
-function atualizarTamanhoGradeDinamicamente( matriz=MATRIZ_GRADE){
-    
-    pausar()
-    limpar()
-    criarGradeHTML(matriz)
-    MATRIZ_GRADE = matriz
-    rodar() 
+function atualizarTamanhoGradeDinamicamente( matriz){
+    return new Promise((resolve)=>{
+        criarGradeHTML(matriz)
+        MATRIZ_GRADE = matriz
+    })
 }
 
 
@@ -406,14 +406,14 @@ function diminuirZoom(){
 
 // ================= JOGO DA VIDA ==========================
 
-function jogoDaVida(matriz){
+async function jogoDaVida(matriz){
     let numeroDeLinhas = matriz.length;
     let numeroDeColunas = matriz[0].length
     let novaMatriz = criarMatriz(numeroDeLinhas, numeroDeColunas)
     
     for (let i = 0; i < numeroDeLinhas; i++) {
         for (let j = 0; j < numeroDeColunas; j++) {
-            let visinhosVivos = contarCelulasVizinhasVivas(matriz, i, j);
+            let visinhosVivos = await contarCelulasVizinhasVivas(matriz, i, j);
 
             /* Regras do jogo da vida:
             Toda célula morta com exatamente três vizinhos vivos torna-se viva (nascimento).
@@ -470,72 +470,62 @@ const mapaImagens = {
 
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
 
-var TIPO_GRADE = "circular"
+var TIPO_GRADE = "circular";
 
 var ZOOM = 100;
 
-var iniciar = (loop=true)=>{
-    
-    let IntervaloID;
-    let rodando = false;
+definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
+criarGradeHTML(MATRIZ_GRADE);
+criarSeletorImagemHTML(mapaImagens)
+criarSeletorTipoGradeHTML()
+
+var iniciar = (rodando = true) => {
     let velocidade = calcularVelocidadeGeracoes();
 
-    definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
+    setTimeout(()=>{
+        if (!rodando) {return;}
+        
+        jogoDaVida(MATRIZ_GRADE)
 
-    criarGradeHTML(MATRIZ_GRADE);
-    criarSeletorImagemHTML(mapaImagens)
-    criarSeletorTipoGradeHTML()
+        iniciar()
+    }, velocidade)
 
-    if(loop){
-        IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE)
-        rodando = true
-    }
 
-    // ============== Controles =======================
     this.reiniciar = ()=>{
-        clearInterval(IntervaloID)
-        rodando = false
+
+        rodando = false;
 
         let valor = buscarValorSeletorImagemHTML();
-        let imagem = mapaImagens[valor]
+        let imagem = mapaImagens[valor];
 
         velocidade = calcularVelocidadeGeracoes();
         
-        MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS)
+        MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
         inicializarGradeHTML(MATRIZ_GRADE, imagem)
 
     }
 
     this.rodar = ()=>{
-        if (rodando==false) {
-            velocidade = calcularVelocidadeGeracoes();
-            IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE);
-            rodando = true
-        }
+        if (rodando) {return;}
+
+        rodando = true;
+        iniciar()
     }
-    
+
     this.pausar = ()=>{
-        if (rodando==true) {
-            clearInterval(IntervaloID);
-            rodando = false
-        }
+        if (!rodando) {return;}
+
+        rodando = false;
     }
 
     this.limpar = () =>{
-        clearInterval(IntervaloID)
-        rodando = false
-        
+        rodando = false;
         inicializarGradeHTML(MATRIZ_GRADE, [])
-
     }
 
     this.mudarVelocidade = ()=>{
-        if (rodando == true) {
-            clearInterval(IntervaloID);
-            velocidade = calcularVelocidadeGeracoes();
-            IntervaloID = setInterval(jogoDaVida, velocidade, MATRIZ_GRADE);
-        }
+        velocidade = calcularVelocidadeGeracoes();
     }   
 }
 
-iniciar(loop=false);
+iniciar(rodando=false)
