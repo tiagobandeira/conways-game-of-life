@@ -385,6 +385,11 @@ function atualizarTamanhoGradeDinamicamente( matriz){
     })
 }
 
+function definirZoom(zoom=100){
+    var table = document.getElementById("grade");
+    table.style.zoom = `${zoom}%`;
+    ZOOM = zoom;
+}
 
 function aumentarZoom(){
     var table = document.getElementById("grade");
@@ -502,6 +507,7 @@ var iniciar = (rodando = true) => {
         
         MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
         inicializarGradeHTML(MATRIZ_GRADE, imagem)
+        definirZoom()
 
     }
 
