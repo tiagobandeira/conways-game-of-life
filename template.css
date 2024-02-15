@@ -3,10 +3,43 @@
 */
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+:root{
+    color-scheme: light dark;
+    --text-color: #999;
+    --bg-color: #fafafa;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
-    background: #fafafa;
-   
+    background: var(--bg-color);
+
+    --nav-top-color: #fff;
+    --grid-color: #263238;
+    --cell-bg-color: #263238;
+
+    /* CTA Links */
+    --cta-link-text-color: #263238;
+    --cta-link-bg-color: #fff;
+    --cta-link-hover-text-color: #fff;
+    --cta-link-hover-bg-color: #212c31;
+
+}
+
+.dark-theme{
+    color-scheme: dark;
+    --nav-top-color: #000;
+    --bg-color: #000;
+    --grid-color: #6b9fb8;
+    --cell-bg-color: #6b9fb8;
+    --text-color: #fff;
+
+     /* CTA Links */
+    --cta-link-text-color: #fff;
+    --cta-link-bg-color: #212c31;
+    --cta-link-hover-text-color: #212c31;
+    --cta-link-hover-bg-color: #fff;
+
 }
 
 p {
@@ -14,7 +47,7 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: #999;
+    color: var(--text-color);
 }
 
 a,
@@ -27,7 +60,7 @@ a:focus {
 
 .navbar {
     padding: 15px 10px;
-    background: #fff;
+    background: var(--nav-top-color);
     border: none;
     border-radius: 0;
     margin-bottom: 3px;
@@ -155,13 +188,13 @@ ul.CTAs a i{
 }
 
 a.code {
-    background: #fff;
-    color: #095169;
+    background: var(--cta-link-bg-color);
+    color: var(--cta-link-text-color); 
 }
 
 a.code:hover {
-    background: #212c31 !important;
-    color: #fff !important;
+    background: var(--cta-link-hover-bg-color) !important;
+    color: var(--cta-link-hover-text-color) !important;
 }
 /* ---------------------------------------------------
     CONTENT STYLE
@@ -245,7 +278,7 @@ table, tr, td{
 }
 
 .visible-grid td{
-    border: solid 1px #263238;
+    border: solid 1px var(--grid-color);
 }
 
 #grade{
@@ -258,7 +291,7 @@ table, tr, td{
 }
 
 .bg-color{
-    background-color: #263238 !important;
+    background-color: var(--cell-bg-color) !important;
 }
 .bg .blue-gray-900{
     background-color: #263238;
