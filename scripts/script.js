@@ -271,8 +271,40 @@ function criarGradeHTML(matriz){
     table.innerHTML = linhas
 } 
 
-function inicializarGradeHTML(matriz, posCelulasVivas=undefined){
-    limparMatriz(matriz)
+function burcarMaiorXYImagem(posicoes){
+    let maiorPosX = 0;
+    let maiorPosY = 0;
+
+    posicoes.forEach(posicao => {
+        if (posicao[0] > maiorPosX) {
+            maiorPosX = posicao[0]
+        }
+
+        if (posicao[1] > maiorPosY) {
+            maiorPosY = posicao[1]
+        }
+    });
+    
+    return [maiorPosX, maiorPosY];
+
+}
+
+function reiniciarGradeHTML(matriz, posCelulasVivas=undefined){
+
+    if (!posCelulasVivas) {
+        posCelulasVivas = mapaImagens[buscarValorSeletorImagemHTML()]
+    }
+
+    let [maiorPosXImagem, maiorPosYImagem] = burcarMaiorXYImagem(posCelulasVivas)
+
+    if (maiorPosXImagem > NUMERO_DE_LINHAS || maiorPosYImagem > NUMERO_DE_COLUNAS) {
+        matriz = criarMatriz(maiorPosXImagem+3, maiorPosYImagem+3);
+    }else{
+        matriz = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
+    }
+
+    MATRIZ_GRADE = matriz
+
     definirEstadoInicial(matriz,posCelulasVivas)
     criarGradeHTML(matriz)
 }
@@ -292,13 +324,12 @@ function buscarValorSeletorImagemHTML(){
 
 }
 
-function selecionarImagemHTML(matriz=MATRIZ_GRADE){
+function selecionarImagemHTML(){
 
     let valor = buscarValorSeletorImagemHTML();
     let imagem = mapaImagens[valor]
 
-    inicializarGradeHTML(matriz, imagem)
-    reiniciar()
+    reiniciar(imagem)
 }
 
 function criarSeletorImagemHTML(mapaPosicoes){
@@ -477,11 +508,12 @@ const mapaImagens = {
     nave: IMAGEM_NAVE(POS_X,POS_Y),
     planador: IMAGEM_PLANADOR(POS_X,POS_Y),
     acorn: IMAGEM_ACORN(POS_X,POS_Y),
-    diehard: IMAGEM_DIEHARD(POS_X,POS_Y),
+    diehard: IMAGEM_DIEHARD(POS_X,POS_Y+3),
     bote: IMAGEM_BOTE(POS_X,POS_Y), 
     sapo: IMAGEM_SAPO(POS_X,POS_Y),
     piscador: IMAGEM_PISCADOR(POS_X,POS_Y),
-    bloco: IMAGEM_BLOCO(POS_X,POS_Y)
+    bloco: IMAGEM_BLOCO(POS_X,POS_Y),
+    imagemDeTeste: [[4,6],[13, 18]]
 }
 
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
@@ -508,19 +540,10 @@ var iniciar = (rodando = true) => {
     }, velocidade)
 
 
-    this.reiniciar = ()=>{
-
+    this.reiniciar = (imagem=undefined)=>{
         rodando = false;
-
-        let valor = buscarValorSeletorImagemHTML();
-        let imagem = mapaImagens[valor];
-
-        velocidade = calcularVelocidadeGeracoes();
-        
-        MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
-        inicializarGradeHTML(MATRIZ_GRADE, imagem)
+        reiniciarGradeHTML(MATRIZ_GRADE, imagem)
         definirZoom()
-
     }
 
     this.rodar = ()=>{
@@ -538,7 +561,8 @@ var iniciar = (rodando = true) => {
 
     this.limpar = () =>{
         rodando = false;
-        inicializarGradeHTML(MATRIZ_GRADE, [])
+        limparMatriz(MATRIZ_GRADE)
+        criarGradeHTML(MATRIZ_GRADE)
     }
 
     this.mudarVelocidade = ()=>{
