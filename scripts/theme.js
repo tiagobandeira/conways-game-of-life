@@ -27,7 +27,7 @@ function escolherTema(tema=""){
         corpo.classList.remove("dark-theme");
     }
     
-    textoChequeTema.innerText = tema == "dark" ? "Tema Claro":"Tema Escuro"
+    textoChequeTema.innerText = tema == "dark" ? "Tema Escuro":"Tema Claro"
     document.documentElement.setAttribute("data-bs-theme", tema);
 
     salvarTema(tema)
