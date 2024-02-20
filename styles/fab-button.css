@@ -1,0 +1,162 @@
+:root{
+    --btn-fab-bg-color: #4c6f80;
+    --btn-fab-bg-hover-color: #557b8e;
+    --btn-fab-animation-duration: 0.3s;
+    --btn-fab-color: #fefefe;
+    --btn-fab-size: 50px;
+    --btn-pos-botton: 80px;
+    --btn-pos-right: 50px;
+}
+
+/* Button FAB */
+
+.btn-fab{
+    font-family: "Poppins", sans-serif;
+    width: var(--btn-fab-size);
+    height: var(--btn-fab-size);
+    padding: auto;
+    border: solid 1px;
+    border-radius: 50%;
+    border-color: var(--btn-fab-bg-color);
+    color: var(--btn-fab-color);
+    font-size: 1.3em;
+    position: fixed;
+    bottom: var(--btn-pos-botton);
+    right: var(--btn-pos-right);
+    rotate: -90deg;
+    background-color: var(--btn-fab-bg-color);
+    scale: 1;
+    z-index: 995;
+}
+
+
+.btn-fab:hover{
+    background-color: var(--btn-fab-bg-hover-color);
+}
+
+.btn-fab.active{
+    rotate: 0deg;
+    transition: var(--btn-fab-animation-duration) ease-in-out;
+    font-size: 1.5em;
+    animation-name: btn-active-animation;
+    animation-duration: var(--btn-fab-animation-duration);
+   
+    
+}
+.btn-fab.desactive{
+    rotate: -90deg;
+    transition: var(--btn-fab-animation-duration) ease-in-out;
+
+    animation-name: btn-desactive-animation;
+    animation-duration: var(--btn-fab-animation-duration);
+}
+
+
+@keyframes btn-active-animation {
+    50% { transform: scale(1.1); }
+    to  { transform: scale(1);   }
+}
+
+@keyframes btn-desactive-animation {
+    50% { transform: scale(1.1); }
+    to  { transform: scale(1);   }
+}
+
+
+.overlay-btn-fab {
+    margin: 0px;
+    display: none;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 994;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.overlay-btn-fab.active {
+    display: block;
+    opacity: 1;
+}
+
+
+.btn-fab-group{
+    font-family: "Poppins", sans-serif;
+    background-color: transparent;
+    position: absolute;
+    bottom: var(--btn-pos-botton);
+    right: var(--btn-pos-right);
+    z-index: 999;
+    padding-bottom: 60px;
+    visibility: hidden;
+    color: rgb(230, 227, 227);
+    display: none;
+    max-width: 100vh;
+}
+
+.btn-fab-group.active{
+    display: block;
+    position: fixed;
+}
+.btn-fab-group.desactive{
+    display: block;
+    position: fixed;
+}
+
+.btn-fab-group .btn-fab-item{
+    padding: 7px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 15px;
+}
+.btn-fab-group .btn-fab-item button{
+    background-color: #fefefe;
+    border-radius: 50%;
+    border: 2px solid #fefefe;
+    width: 40px;
+    height: 40px;
+    color: var(--btn-fab-bg-color);
+}
+.btn-fab-group.active button {
+    visibility: visible;
+    font-size: 1.2em;
+    animation: btn-group-active-animation  0.36s;
+}
+.btn-fab-group.desactive button {
+    visibility: visible;
+    transition: 0.13s ease-out;
+    animation: btn-group-desactive-animation 0.15s reverse forwards;
+}
+.btn-fab-group label{
+    font-size: 1.2em;
+}
+.btn-fab-group.active button i {
+    animation: btn-group-active-animation cubic-bezier(0.27, 1, 0.9, 1)  0.36s;
+   
+}
+.btn-fab-group.active label {
+    visibility: visible;
+}
+
+@keyframes btn-group-active-animation {
+    from { transform: scale(0); }
+    to  { transform: scale(1);   }
+}
+@keyframes btn-group-desactive-animation {
+    from { transform: scale(0); }
+    to  { transform: scale(1);   }
+}
+
+
+
+@media (max-width: 768px){
+    :root{
+        --btn-fab-size: 55px;
+        --btn-pos-botton: 61px;
+        --btn-pos-right: 24px;
+    }
+}
