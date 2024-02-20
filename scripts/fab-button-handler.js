@@ -1,4 +1,4 @@
-import { hendlerBtnFABClick } from "/scripts/fab-button.js";
+import { hendlerBtnFABClick } from "./fab-button.js";
 
 
 var btn = document.querySelector(".btn-fab");
