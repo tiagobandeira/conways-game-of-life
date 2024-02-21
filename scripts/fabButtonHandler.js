@@ -8,7 +8,7 @@ function desable(){ return; }
 
 // Script Button FAB
 
-export function  hendlerBtnFABClick(callbackActive=active,callbackDesable=desable) {
+export function  fabButtonClickHandler() {
     
     var btnFAB = document.querySelector(".btn-fab");
     var icon = document.querySelector(".btn-icon");
@@ -23,11 +23,11 @@ export function  hendlerBtnFABClick(callbackActive=active,callbackDesable=desabl
     if (!toggle) {
         btnFAB.classList.add("desactive")
         btnFABGroup.classList.add("desactive")
-        callbackDesable()
+        active()
     }else{
         btnFABGroup.classList.remove("desactive")
         btnFAB.classList.remove("desactive")
-        callbackActive()
+        desable()
     }
 
     setTimeout(()=>{
