@@ -100,7 +100,9 @@ function obterPosicoesCelulasVizinhasGradeCircular(matriz,x,y){
     return  arrayOrientacoes
 }
 
-function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade="circular"){
+function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade){
+
+    var tipoGrade = tipoGrade ||  "circular"
 
     if (tipoGrade == "circular") { return obterPosicoesCelulasVizinhasGradeCircular(matriz, x, y)}
     
@@ -115,7 +117,7 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade="circular"){
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
 async function contarCelulasVizinhasVivas(matriz, x, y){          
-    let celulasVisinhas = await obterPosicoesCelulasVizinhas(matriz,x,y,tipoGrade=TIPO_GRADE);
+    let celulasVisinhas = await obterPosicoesCelulasVizinhas(matriz,x,y,TIPO_GRADE);
     let contador = 0;
 
     celulasVisinhas.forEach(celula => {
@@ -253,13 +255,13 @@ const IMAGEM_DIEHARD = (x,y)=>{
 // ================= GRADE HTML ==========================
 
 function criarGradeHTML(matriz){
-    const table = document.getElementById("grade")
+    const grade = document.getElementById("grade")
     let linhas = "";
     let celula = "";
     for (let i = 0; i < matriz.length; i++) {     
         let colunas = ""
         for (let j = 0; j < matriz[0].length; j++) {
-            celula = `<div class="cell" onclick="clicarCelulaHTML(${i},${j})"></div>`
+            celula = `<div class="cell" data-x="${i}" data-y="${j}" ></div>`
             if (matriz[i][j] == 1) {
                 colunas += `<td class="bg-color">${celula}</td>`    
             }else{ 
@@ -268,7 +270,20 @@ function criarGradeHTML(matriz){
         }
         linhas += "<tr>"  + colunas + "</tr>"  
     }
-    table.innerHTML = linhas
+
+    grade.innerHTML = linhas
+    
+    // adicionado evento click as celulas
+    document.querySelectorAll(".cell").forEach(celula => {
+    
+        var x = parseInt(celula.getAttribute("data-x"))
+        var y = parseInt(celula.getAttribute("data-y"))
+        
+        celula.addEventListener("click", ()=>{
+            clicarCelulaHTML(x,y)
+        })
+    });
+    
 } 
 
 function burcarMaiorXYImagem(posicoes){
@@ -324,7 +339,7 @@ function buscarValorSeletorImagemHTML(){
 
 }
 
-function selecionarImagemHTML(){
+export function selecionarImagemHTML(){
 
     let valor = buscarValorSeletorImagemHTML();
     let imagem = mapaImagens[valor]
@@ -341,7 +356,7 @@ function criarSeletorImagemHTML(mapaPosicoes){
     seletorImagem.innerHTML = opcoes
 }
 
-function selecionarTipoGradeHTML(){
+export function selecionarTipoGradeHTML(){
     let valor = document.getElementById("seletorTipoGrade").value
     let table = document.getElementById("grade")
     let tipoBorda = ""
@@ -390,15 +405,14 @@ function celulaEstaViva(matriz, x, y){
 }
 
 
-function clicarCelulaHTML(x,y,matriz=MATRIZ_GRADE){
-
-    let celulaViva = celulaEstaViva(matriz,x,y);
+export function clicarCelulaHTML(x,y){
+    let celulaViva = celulaEstaViva(MATRIZ_GRADE,x,y);
     if(celulaViva == false){
         adicionarCorCelula(x,y)
-        vitalizarCelula(matriz,x,y)
+        vitalizarCelula(MATRIZ_GRADE,x,y)
     }else{
         removerCorCelular(x,y)
-        finalizarCelula(matriz,x,y)
+        finalizarCelula(MATRIZ_GRADE,x,y)
     }
 }
 
@@ -422,7 +436,7 @@ function definirZoom(zoom=100){
     ZOOM = zoom;
 }
 
-function aumentarZoom(){
+export function aumentarZoom(){
     var table = document.getElementById("grade");
     if (ZOOM > 140) {
         return;
@@ -431,7 +445,7 @@ function aumentarZoom(){
     table.style.zoom = `${ZOOM}%`
 }
 
-function diminuirZoom(){
+export function diminuirZoom(){
     var table = document.getElementById("grade");
     if (ZOOM == 10) {
         return;
@@ -440,7 +454,7 @@ function diminuirZoom(){
     table.style.zoom = `${ZOOM}%`
 }
 
-function vizualizarGrade() {
+export function vizualizarGrade() {
     var cheque = document.getElementById("chequeExibirGrade");
     var table  = document.getElementById("grade");
 
@@ -495,6 +509,37 @@ async function jogoDaVida(matriz){
 
 }
 
+// ===================  CONTROLES =========================
+export const reiniciar = (imagem=undefined)=>{
+    RODANDO = false;
+    reiniciarGradeHTML(MATRIZ_GRADE, imagem)
+    definirZoom()
+}
+
+export const rodar = ()=>{
+    if (RODANDO) {return;}
+
+    RODANDO = true;
+    iniciar()
+}
+
+export const pausar = ()=>{
+    if (!RODANDO) {return;}
+
+    RODANDO = false;
+}
+
+export const limpar = () =>{
+    RODANDO = false;
+    limparMatriz(MATRIZ_GRADE)
+    criarGradeHTML(MATRIZ_GRADE)
+}
+
+export const mudarVelocidade = ()=>{
+    VELOCIDADE = calcularVelocidadeGeracoes();
+}   
+
+
 // ================= INICIAR JOGO ==========================
 
 
@@ -517,10 +562,11 @@ const mapaImagens = {
 }
 
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
-
+var VELOCIDADE = calcularVelocidadeGeracoes();
 var TIPO_GRADE = "circular";
-
+var RODANDO = false;
 var ZOOM = 100;
+
 
 definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
 criarGradeHTML(MATRIZ_GRADE);
@@ -528,46 +574,16 @@ criarSeletorImagemHTML(mapaImagens)
 criarSeletorTipoGradeHTML()
 vizualizarGrade()
 
-var iniciar = (rodando = true) => {
-    let velocidade = calcularVelocidadeGeracoes();
+export var iniciar = () => {
+    VELOCIDADE = calcularVelocidadeGeracoes();
 
     setTimeout(()=>{
-        if (!rodando) {return;}
+        if (!RODANDO) {return;}
         
         jogoDaVida(MATRIZ_GRADE)
 
         iniciar()
-    }, velocidade)
-
-
-    this.reiniciar = (imagem=undefined)=>{
-        rodando = false;
-        reiniciarGradeHTML(MATRIZ_GRADE, imagem)
-        definirZoom()
-    }
-
-    this.rodar = ()=>{
-        if (rodando) {return;}
-
-        rodando = true;
-        iniciar()
-    }
-
-    this.pausar = ()=>{
-        if (!rodando) {return;}
-
-        rodando = false;
-    }
-
-    this.limpar = () =>{
-        rodando = false;
-        limparMatriz(MATRIZ_GRADE)
-        criarGradeHTML(MATRIZ_GRADE)
-    }
-
-    this.mudarVelocidade = ()=>{
-        velocidade = calcularVelocidadeGeracoes();
-    }   
+    }, VELOCIDADE)
 }
 
-iniciar(rodando=false)
+iniciar()

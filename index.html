@@ -14,28 +14,32 @@
         <div style="border: 1px solid #ccc; padding: 1em;">
             <b>Configurações:</b>
             <p>Selecione uma imagem inicial:
-                <select title="Imagens do Jogo da Vida" id="seletorImagem" onchange="selecionarImagemHTML()">
+                <select title="Imagens do Jogo da Vida" id="seletorImagem">
                 </select>
             </p>
             <p>Tipo de grade:
-                <select title="Tipo de grade" id="seletorTipoGrade" onchange="selecionarTipoGradeHTML()">
+                <select title="Tipo de grade" id="seletorTipoGrade" >
                 </select>
             </p>
             <p>Velocidade:
-                <input title="Intervalo de velocidade" type="range" name="" onchange="mudarVelocidade()" id="intervaloVelocidade" min="1" max="10" step="1">
+                <input title="Intervalo de velocidade" type="range" name="" id="intervaloVelocidade" min="1" max="10" step="1">
             </p>
             <p>Exibir grade
-                <input type="checkbox" name="" onchange="vizualizarGrade()" id="chequeExibirGrade" checked>
+                <input type="checkbox" name=""  id="chequeExibirGrade" checked>
             </p>
         </div>
         <br/>
-        <button type="button" onclick="rodar()">Rodar</button>
-        <button type="button" onclick="pausar()">Pausar</button>
-        <button type="button" onclick="reiniciar()">Reiniciar</button>
-        <button type="button" onclick="limpar()">Limpar</button>
+        <button id="btn-rodar">Rodar</button>
+        <button id="btn-pausar">Pausar</button>
+        <button id="btn-reiniciar">Reiniciar</button>
+        <button id="btn-limpar">Limpar</button>
         <br/><br/>
         <table id="grade" class="border"></table>
+
+        <span id="btn-diminuir-zoom"></span>
+        <span id="btn-aumentar-zoom"></span>
         
 </body>
-<script src="scripts/script.js"></script>
+<script type="module" src="scripts/gameOfLife.js"></script>
+<script type="module" src="scripts/controls.js"></script>
 </html>
