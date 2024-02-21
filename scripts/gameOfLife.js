@@ -356,23 +356,29 @@ function criarSeletorImagemHTML(mapaPosicoes){
     seletorImagem.innerHTML = opcoes
 }
 
-export function selecionarTipoGradeHTML(){
-    let valor = document.getElementById("seletorTipoGrade").value
+export function selecionarTipoGradeHTML(valor){
+    let seletorTipoGrade = document.getElementById("seletorTipoGrade")
     let table = document.getElementById("grade")
-    let tipoBorda = ""
     
-    TIPO_GRADE = valor
+    if (valor) {
+        seletorTipoGrade.value = valor
+    }
+    
+    let tipoBorda = "solid"
+    let corBorda = "var(--cell-bg-color)"
+    
+    TIPO_GRADE = seletorTipoGrade.value
     table.classList.remove("border")
 
-    if (TIPO_GRADE == "limitada") {
-        tipoBorda = "solid"
+    if (TIPO_GRADE == "ilimitada") {
+        corBorda = "transparent"
     }
     if(TIPO_GRADE=="circular"){
         tipoBorda = "dashed"
     }
     
-
     table.style.border = tipoBorda
+    table.style.borderColor = corBorda
 }
 
 function criarSeletorTipoGradeHTML(){
@@ -416,9 +422,12 @@ export function clicarCelulaHTML(x,y){
     }
 }
 
-function calcularVelocidadeGeracoes(){
+export function calcularVelocidadeGeracoes(velocidade){
     var intervaloVelocidade = document.getElementById("intervaloVelocidade")
-    let velocidade = 700 / parseInt(intervaloVelocidade.value)
+    if (velocidade) {
+        intervaloVelocidade.value = velocidade
+    }
+    velocidade = 700 / parseInt(intervaloVelocidade.value)
 
     return velocidade
 }
@@ -454,10 +463,14 @@ export function diminuirZoom(){
     table.style.zoom = `${ZOOM}%`
 }
 
-export function vizualizarGrade() {
-    var cheque = document.getElementById("chequeExibirGrade");
+export function vizualizarGrade(valor) {
     var table  = document.getElementById("grade");
-
+    var cheque = document.getElementById("chequeExibirGrade")
+    
+    if (valor !== undefined) {
+        cheque.checked = valor
+    }
+    
     if (cheque.checked) {
         table.classList.add("visible-grid")
     }else{
