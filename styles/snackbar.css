@@ -1,0 +1,43 @@
+:root{
+    --snackbar-bg-color: #333333;
+    --snackbar-color: #FFFFFFDE;
+    --snackbar-size-btn-close: 35px;
+}
+.snackbar{
+    min-width: 160px;
+    max-width: 340px;
+    min-height: 38px;
+    position: absolute;
+    bottom: 20%;
+    padding: 8px 12px 8px 12px;
+    background-color: var(--snackbar-bg-color);
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    column-gap: 15px;
+    z-index: 994;
+    opacity: 0;
+    transition: 0.2s linear;
+}
+.snackbar.active{
+    opacity: 1;
+    transition: 0.2s linear;
+}
+.snackbar .message{
+    color: var(--snackbar-color);
+    font-size: 0.9em;
+    max-width: 265px;
+}
+.snackbar .close{
+    background-color: var(--snackbar-bg-color);
+    width: var(--snackbar-size-btn-close);
+    height: var(--snackbar-size-btn-close);
+    border-radius: 50%;
+    border-color: var(--snackbar-bg-color);
+    border-style: none;
+}
+.snackbar .close:hover{
+    background-color: hsla(0, 0%, 100%, 0.068);
+}
