@@ -32,7 +32,7 @@ export function alert(parentElement, message, durationInSeconds) {
     // ativa o alerta
     activeAlert(alertElement)
 
-    // cria um loop para monitarar 
+    // cria um loop para monitorar o a duração do alerta 
     let durationInMilliseconds = durationInSeconds*1000
     let loopInterval = 100;
 
