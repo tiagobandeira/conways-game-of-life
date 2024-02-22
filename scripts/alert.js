@@ -36,18 +36,18 @@ export function alert(parentElement, message, durationInSeconds) {
     let durationInMilliseconds = durationInSeconds*1000
     let loopInterval = 100;
 
-    (function alertLoop(t) {
+    (function alertLoop(currentTime) {
         setTimeout(()=>{
             // interrompe o loop caso o usuário tenha clicado em close
             if (exit) {return;}
             
             // verifica se o tempo do alerta acabou
-            if (durationInMilliseconds < t) {
+            if (durationInMilliseconds < currentTime) {
                 removeAlert(parentElement, alertElement)
                 exit = true
                 return;
             }
-            alertLoop(t+loopInterval)
+            alertLoop(currentTime+loopInterval)
         }, loopInterval);
 
     })(0);
