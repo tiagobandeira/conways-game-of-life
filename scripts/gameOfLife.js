@@ -113,6 +113,23 @@ function obterPosicoesCelulasVizinhas(matriz, x, y, tipoGrade){
     )}
 }
 
+export function obterTodasPosicoesCelulasVivas(){
+    
+    if (!MATRIZ_GRADE) { return []; }
+    
+    let posicoes = [];
+    for (let i = 0; i < MATRIZ_GRADE.length; i++) {
+        for (let j = 0; j < MATRIZ_GRADE[i].length; j++) {
+            let item = MATRIZ_GRADE[i][j];
+            if (item == 1) {
+                posicoes.push([i,j])
+            }
+        }
+        
+    }
+    return posicoes
+}
+
 
 // ================= CONTAGEM DAS CÉLULAS ==========================
 
