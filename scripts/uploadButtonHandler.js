@@ -34,7 +34,7 @@ export function uploadButtonClickHandler(callback){
             reader.readAsText(file)
     
         }else{
-            console.log("Nenhum arquivo selecionado")
+            alert(content, "Nenhum arquivo selecionado", 3)
         }
     })
 }
