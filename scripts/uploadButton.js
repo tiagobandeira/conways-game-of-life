@@ -3,6 +3,10 @@ import { reiniciar, selecionarTipoGradeHTML, vizualizarGrade, calcularVelocidade
 import { fabButtonClickHandler } from "./fabButtonHandler.js";
 
 function populateTheTemplate(data){
+    if (!data) {
+        fabButtonClickHandler()
+        return;
+    }
     vizualizarGrade(data.exibirGrade)
     selecionarTipoGradeHTML(data.tipoGrade)
     calcularVelocidadeGeracoes(data.velocidade)

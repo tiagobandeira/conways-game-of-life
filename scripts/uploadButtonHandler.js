@@ -1,4 +1,5 @@
 import { validarDados, toJSON } from "./processData.js";
+import { alert } from "./alert.js";
 
 export function uploadButtonClickHandler(callback){
 
@@ -18,13 +19,15 @@ export function uploadButtonClickHandler(callback){
             reader.onload = (event) => {
                 var fileContent = event.target.result;
                 var data = toJSON(fileContent)
+
+                var content = document.getElementById("content");
                 
                 if (validarDados(data)) {
-                    console.log("Dados da imagem são válidos!")
                     callback(data)
-                    console.log(data)
+                    alert(content, "Imagem carregada com sucesso", 3)
                 }else{
-                    console.log("Os dados da imagem não são válidos!")
+                    callback()
+                    alert(content, "Essa imagem não é válida", 4)
                 }
                 fileInput.value = ""
             }
