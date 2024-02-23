@@ -31,5 +31,5 @@ function download(object, filename) {
     fabButtonClickHandler();
 
     // Exibir alerta
-    alert(document.getElementById("content"), "A Imagem foi salva com sucesso!",3)
+    alert("A Imagem foi salva com sucesso!")
 }

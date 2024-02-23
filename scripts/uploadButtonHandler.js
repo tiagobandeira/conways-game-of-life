@@ -19,22 +19,20 @@ export function uploadButtonClickHandler(callback){
             reader.onload = (event) => {
                 var fileContent = event.target.result;
                 var data = toJSON(fileContent)
-
-                var content = document.getElementById("content");
                 
                 if (validarDados(data)) {
                     callback(data)
-                    alert(content, "Imagem carregada com sucesso", 3)
+                    alert("Imagem carregada com sucesso")
                 }else{
                     callback()
-                    alert(content, "Essa imagem não é válida", 4)
+                    alert("Essa imagem não é válida")
                 }
                 fileInput.value = ""
             }
             reader.readAsText(file)
     
         }else{
-            alert(content, "Nenhum arquivo selecionado", 3)
+            alert("Nenhum arquivo selecionado")
         }
     })
 }
