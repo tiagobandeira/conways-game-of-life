@@ -42,38 +42,32 @@ export function alert(message, durationInSeconds=5, parentElementSelector="conte
     let durationInMilliseconds = durationInSeconds*1000
     let loopInterval = 100;
 
-    (function alertLoop(currentTime) {
-        setTimeout(()=>{
-            // interrompe o loop caso o usuário tenha clicado em close
-            if (exit) {return;}
-            
-            // verifica se o tempo do alerta acabou
-            if (durationInMilliseconds < currentTime) {
-                removeAlert(parentElement ,alertContainer, alertElement)
-                exit = true
-                return;
-            }
-            alertLoop(currentTime+loopInterval)
-        }, loopInterval);
-
-    })(0);
+    let currentTime = 0;
+    const interval = setInterval(()=>{
+        if(exit){
+            clearInterval(interval)
+            return;
+        }
+        if (durationInMilliseconds < currentTime) {
+            removeAlert(parentElement ,alertContainer, alertElement)
+            exit = true
+            return;
+        }
+        currentTime += loopInterval
+    }, loopInterval)
 
 }
 
 
 function activeAlert(alertElement) {
-    setTimeout(()=>{
-        alertElement.classList.add("active")
-    },100);
+    alertElement.classList.add("active")
 }
 
 
 function removeAlert(parentElement, alertContainer, alertElement) {
     alertElement.classList.remove("active")
-    setTimeout(()=>{
-        alertContainer.removeChild(alertElement)
-        removeAlertContainer(parentElement, alertContainer)
-    }, 200);
+    alertContainer.removeChild(alertElement)
+    removeAlertContainer(parentElement, alertContainer)
 }
 
 
