@@ -4,7 +4,6 @@
 
 export function alert(message, durationInSeconds=5, parentElementSelector="content") {
 
-    let exit = false;
     let alertString = (
         `<div class="snackbar">
             <label class="message" for="">${message}</label>
@@ -30,49 +29,42 @@ export function alert(message, durationInSeconds=5, parentElementSelector="conte
 
     // Adiciona evento de clique no botão close
     alertElementCloseButton.addEventListener("click",()=>{
-        if (exit) { return; }
         removeAlert(parentElement, alertContainer, alertElement)
-        exit = true;
     })
 
     // ativa o alerta
-    activeAlert(alertElement)
+    waitForTheAnimation(()=>{
+        alertElement.classList.add("active")
+    })
 
-    // Criar loop para monitorar a duração do alert
+    // Criar setInterval para monitorar a duração do alert
     let durationInMilliseconds = durationInSeconds*1000
-    let loopInterval = 100;
 
-    let currentTime = 0;
-    const interval = setInterval(()=>{
-        if(exit){
-            clearInterval(interval)
-            return;
-        }
-        if (durationInMilliseconds < currentTime) {
-            removeAlert(parentElement ,alertContainer, alertElement)
-            exit = true
-            return;
-        }
-        currentTime += loopInterval
-    }, loopInterval)
-
-}
-
-
-function activeAlert(alertElement) {
-    alertElement.classList.add("active")
+    const interval = setInterval(
+        removeAlert,
+        durationInMilliseconds,
+        parentElement,
+        alertContainer,
+        alertElement
+    );
 }
 
 
 function removeAlert(parentElement, alertContainer, alertElement) {
-    alertElement.classList.remove("active")
-    alertContainer.removeChild(alertElement)
-    removeAlertContainer(parentElement, alertContainer)
+    if (alertContainer.contains(alertElement)) {
+        alertElement.classList.remove("active")
+        waitForTheAnimation(()=>{
+            alertContainer.removeChild(alertElement)
+            removeAlertContainer(parentElement, alertContainer)
+        });
+    }
 }
-
 
 function removeAlertContainer(parentElement, alertContainer) {
     if (alertContainerHasChildren(alertContainer)) {
+        return;
+    }
+    if (!parentElement.contains(alertContainer)) {
         return;
     }
     parentElement.removeChild(alertContainer)
@@ -80,8 +72,12 @@ function removeAlertContainer(parentElement, alertContainer) {
 
 
 function alertContainerHasChildren(alertContainer) {
-    if (parseInt(alertContainer.childElementCount) == 0) {
+    if (alertContainer.childElementCount == 0) {
         return false
     }
     return true
+}
+
+function waitForTheAnimation(callback) {
+    setTimeout(callback, 200)
 }
