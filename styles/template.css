@@ -5,7 +5,6 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
 :root{
-    color-scheme: light dark;
     --text-color: #999;
     --bg-color: #fafafa;
 }
