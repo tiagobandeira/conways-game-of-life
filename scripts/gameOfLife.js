@@ -321,7 +321,12 @@ function burcarMaiorXYImagem(posicoes){
 
 }
 
-function reiniciarGradeHTML(matriz, posCelulasVivas=undefined){
+export function reiniciarGradeHTML(largura, altura, posCelulasVivas=undefined){
+
+    largura = largura || NUMERO_DE_COLUNAS;
+    altura  = altura  || NUMERO_DE_LINHAS;
+
+    let matriz;
 
     if (!posCelulasVivas) {
         posCelulasVivas = mapaImagens[buscarValorSeletorImagemHTML()]
@@ -332,7 +337,7 @@ function reiniciarGradeHTML(matriz, posCelulasVivas=undefined){
     if (maiorPosXImagem > NUMERO_DE_LINHAS || maiorPosYImagem > NUMERO_DE_COLUNAS) {
         matriz = criarMatriz(maiorPosXImagem+3, maiorPosYImagem+3);
     }else{
-        matriz = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
+        matriz = criarMatriz(altura, largura);
     }
 
     MATRIZ_GRADE = matriz
@@ -542,7 +547,7 @@ async function jogoDaVida(matriz){
 // ===================  CONTROLES =========================
 export const reiniciar = (imagem=undefined)=>{
     RODANDO = false;
-    reiniciarGradeHTML(MATRIZ_GRADE, imagem)
+    reiniciarGradeHTML(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS, imagem)
     definirZoom()
 }
 

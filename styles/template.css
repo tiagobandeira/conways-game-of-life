@@ -114,22 +114,22 @@ a:focus {
     margin: auto;
 }
 
-#sidebar ul.controls .form-check-input:checked{
+.form-check-input:checked{
     background-color: #37474f;
     border-color: #344148;
 }
 
-#sidebar ul.controls .form-check-input{
+ .form-check-input{
     font-size: large;
 }
 
-#sidebar ul.controls .form-check{
+ .form-check{
     display: flex;
     justify-content: space-between; 
     padding: 0; 
 }
 
-#sidebar ul.controls .form-check label{
+ .form-check label{
     width: 100%;
 }
 
