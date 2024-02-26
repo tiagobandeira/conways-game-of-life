@@ -469,7 +469,7 @@ function definirZoom(zoom=100){
 
 export function aumentarZoom(){
     var table = document.getElementById("grade");
-    if (ZOOM > 140) {
+    if (ZOOM > 400) {
         return;
     }
     ZOOM += 10
@@ -478,7 +478,7 @@ export function aumentarZoom(){
 
 export function diminuirZoom(){
     var table = document.getElementById("grade");
-    if (ZOOM == 10) {
+    if (ZOOM < 30) {
         return;
     }
     ZOOM -= 10
