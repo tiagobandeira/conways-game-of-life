@@ -184,7 +184,9 @@ function definirEstadoInicial(matriz, posicoes){
     posicoes.forEach(posicao=>{
         let i = posicao[0];
         let j = posicao[1];
-        matriz[i][j] = 1
+        if (i < matriz.length && j < matriz[0].length) {
+            matriz[i][j] = 1
+        }
     })
 }
 
