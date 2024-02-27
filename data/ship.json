@@ -1,0 +1,7 @@
+{
+    "tipoGrade":"circular",
+    "nomeImagem":"Espaçonave peso-leve",
+    "velocidade":6,
+    "exibirGrade":true,
+    "posicoesImagem":[[6,6],[6,9],[7,5],[8,5],[8,9],[9,5],[9,6],[9,7],[9,8]]
+}

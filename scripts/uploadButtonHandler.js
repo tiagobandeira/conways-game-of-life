@@ -1,4 +1,4 @@
-import { validarDados, toJSON } from "./processData.js";
+import { toJSON, validateData } from "./processData.js";
 import { alert } from "./alert.js";
 
 export function uploadButtonClickHandler(callback){
@@ -20,7 +20,7 @@ export function uploadButtonClickHandler(callback){
                 var fileContent = event.target.result;
                 var data = toJSON(fileContent)
                 
-                if (validarDados(data)) {
+                if (validateData(data)) {
                     callback(data)
                     alert("Imagem carregada com sucesso")
                 }else{

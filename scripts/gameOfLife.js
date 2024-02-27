@@ -229,48 +229,6 @@ function criarCopiarMatriz(matriz){
     return matrizCopia
 }
 
-// ================= ESTADOS INICIAIS ==========================
-
-// nave
-const IMAGEM_NAVE = (x,y)=>{
-    return [[x,y],[x+1,y-1],[x+2,y-1],[x+3,y-1],[x+3,y],[x+3,y+1],[x+3,y+2],[x,y+3],[x+2,y+3],]
-}
-
-// planador 
-const IMAGEM_PLANADOR = (x,y)=>{
-    return [[x,y],[x,y+1],[x,y+2],[x+1,y],[x+2,y+1],]
-}
-                  
-// acorn
-const IMAGEM_ACORN = (x,y)=>{
-    return [[x,y],[x+2,y-1],[x+2,y],[x+1,y+2],[x+2,y+3],[x+2,y+4],[x+2,y+5],]
-}
-
-// bote
-const IMAGEM_BOTE = (x,y) => {
-    return [[x,y-1],[x,y],[x+1,y-1],[x+1,y+1],[x+2,y]]
-}
-
-const IMAGEM_BLOCO = (x,y) => {
-    return [[x,y],[x+1,y],[x+1,y+1],[x,y+1],]
-}
-
-// sapo
-const IMAGEM_SAPO = (x,y)=>{
-    return [[x,y-1],[x,y],[x,y+1],[x-1,y],[x-1,y+1],[x-1,y+2]]
-}
-
-// piscador
-const IMAGEM_PISCADOR = (x,y)=>{
-    return [[x,y-1],[x,y],[x,y+1]] 
-}
-
-// diehard
-const IMAGEM_DIEHARD = (x,y)=>{ 
-    return [[x,y],[x+1,y-6],[x+1,y-5],[x+2,y-5],[x+2,y-1],[x+2,y],[x+2,y+1],]
-}
-
-
 // ================= GRADE HTML ==========================
 
 function criarGradeHTML(matriz){
@@ -331,7 +289,8 @@ export function reiniciarGradeHTML(largura, altura, posCelulasVivas=undefined){
     let matriz;
 
     if (!posCelulasVivas) {
-        posCelulasVivas = mapaImagens[buscarValorSeletorImagemHTML()]
+        let imagem = MAPA_IMAGENS[buscarValorSeletorImagemHTML()]
+        posCelulasVivas = imagem.posicoesImagem
     }
 
     let [maiorPosXImagem, maiorPosYImagem] = burcarMaiorXYImagem(posCelulasVivas)
@@ -366,16 +325,18 @@ function buscarValorSeletorImagemHTML(){
 export function selecionarImagemHTML(){
 
     let valor = buscarValorSeletorImagemHTML();
-    let imagem = mapaImagens[valor]
+    let imagem = MAPA_IMAGENS[valor].posicoesImagem
 
     reiniciar(imagem)
 }
 
-function criarSeletorImagemHTML(mapaPosicoes){
+async function criarSeletorImagemHTML(){
     let seletorImagem = document.getElementById("seletorImagem")
+    let mapaImagens = await obterMapaImagens() || IMAGEM_INICIAL
     let opcoes = "";
-    for (const key in mapaPosicoes) {
-        opcoes += `<option value="${key}">${key}</option>`
+    for (const key in mapaImagens) {
+        let nomeImagem = mapaImagens[key].nomeImagem
+        opcoes += `<option value="${key}">${nomeImagem}</option>`
     }
     seletorImagem.innerHTML = opcoes
 }
@@ -579,23 +540,27 @@ export const mudarVelocidade = ()=>{
 
 // ================= INICIAR JOGO ==========================
 
+import { getFileData } from "./processData.js";
 
 const NUMERO_DE_LINHAS = 15;
 const NUMERO_DE_COLUNAS = 15;
 
-const POS_X = parseInt(NUMERO_DE_LINHAS / 2) - 1;
-const POS_Y = parseInt(NUMERO_DE_COLUNAS / 2) -1;
+const obterMapaImagens = async () => {
 
-const mapaImagens = {
-    nave: IMAGEM_NAVE(POS_X,POS_Y),
-    planador: IMAGEM_PLANADOR(POS_X,POS_Y),
-    acorn: IMAGEM_ACORN(POS_X,POS_Y),
-    diehard: IMAGEM_DIEHARD(POS_X,POS_Y+3),
-    bote: IMAGEM_BOTE(POS_X,POS_Y), 
-    sapo: IMAGEM_SAPO(POS_X,POS_Y),
-    piscador: IMAGEM_PISCADOR(POS_X,POS_Y),
-    bloco: IMAGEM_BLOCO(POS_X,POS_Y),
-    imagemDeTeste: [[4,6],[13, 18]]
+    const nomeArquivos = ["ship", "glider","acorn","diehard","boat","toad","blinker","block","gliderGun"];
+    
+    let map = {};
+    let promises = nomeArquivos.map(nomeArquivo => getFileData(nomeArquivo)); 
+    let imagens = await Promise.all(promises);
+
+    if (!imagens[0]) { return; }
+    
+    for (let i = 0; i < imagens.length; i++) {
+        let chave = nomeArquivos[i];
+        map[chave] = imagens[i]
+    }
+   
+    return map
 }
 
 var MATRIZ_GRADE = criarMatriz(NUMERO_DE_LINHAS, NUMERO_DE_COLUNAS);
@@ -604,14 +569,23 @@ var TIPO_GRADE = "circular";
 var RODANDO = false;
 var ZOOM = 100;
 
+const IMAGEM_INICIAL = {ship:{
+    tipoGrade:"circular",
+    nomeImagem:"Espaçonave peso-leve",
+    velocidade:6,
+    exibirGrade:true,
+    posicoesImagem:[[6,6],[6,9],[7,5],[8,5],[8,9],[9,5],[9,6],[9,7],[9,8]]
+}}
+const MAPA_IMAGENS = await obterMapaImagens() || IMAGEM_INICIAL
+const POSICOES_INICIAL  = MAPA_IMAGENS["ship"].posicoesImagem 
 
-definirEstadoInicial(MATRIZ_GRADE, IMAGEM_NAVE(POS_X,POS_Y))
+definirEstadoInicial(MATRIZ_GRADE, POSICOES_INICIAL)
 criarGradeHTML(MATRIZ_GRADE);
-criarSeletorImagemHTML(mapaImagens)
+criarSeletorImagemHTML()
 criarSeletorTipoGradeHTML()
 vizualizarGrade()
 
-export var iniciar = () => {
+export const iniciar = () => {
     VELOCIDADE = calcularVelocidadeGeracoes();
 
     setTimeout(()=>{
