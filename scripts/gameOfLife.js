@@ -326,7 +326,11 @@ export function selecionarImagemHTML(){
 
     let valor = buscarValorSeletorImagemHTML();
     let imagem = MAPA_IMAGENS[valor].posicoesImagem
-
+    let tipoGrade = MAPA_IMAGENS[valor].tipoGrade
+    let velocidade = MAPA_IMAGENS[valor].velocidade
+    
+    selecionarTipoGradeHTML(tipoGrade)
+    calcularVelocidadeGeracoes(velocidade)
     reiniciar(imagem)
 }
 
