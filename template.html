@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="styles/snackbar.css">
      <!-- Dialog CSS -->
      <link rel="stylesheet" href="styles/dialog.css">
+    <!-- Button Recorde CSS -->
+    <link rel="stylesheet" href="styles/stop-recording-button.css">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="styles/template.css">
     <!-- Font Awesome JS -->
@@ -106,21 +108,24 @@
     <!-- Button FAB -->
     <div class="btn-fab-group">
         <div class="btn-fab-item">
-            <label for="">Gravar</label>
-            <button><i class="fa-solid fa-video"></i></button>
+            <label for="btn-start-record">Gravar</label>
+            <button id="btn-start-record"><i class="fa-solid fa-video"></i></button>
         </div>
         <div class="btn-fab-item">
-            <label for="">Baixar</label>
+            <label for="btn-dowload">Baixar</label>
             <button id="btn-dowload"><i class="fa-solid fa-file-arrow-down"></i></button>
         </div>
         <div class="btn-fab-item">
-            <label for="">Subir Imagem</label>
+            <label for="btn-upload">Subir Imagem</label>
             <button id="btn-upload"><i class="fa-solid fa-upload"></i></button>
             <input id="inputFile" type="file" name="" accept=".json"  style="display: none;">
         </div>
     </div>
     <button class="btn-fab">
         <i class="fa-solid fa-plus fa-floppy-disk btn-icon"></i>
+    </button>
+    <button id="btn-stop-record">
+        <i class="fa-solid fa-stop"></i>
     </button>
 
     <!-- Dialog Grid Options -->
@@ -166,7 +171,6 @@
 
     <div class="overlay"></div>
     <div class="overlay-btn-fab"></div> 
-    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> 
     <!-- Scripts -->
@@ -179,5 +183,6 @@
     <script type="module" src="scripts/uploadButton.js"></script>
     <script type="module" src="scripts/downloadButton.js"></script>
     <script type="module" src="scripts/dialog.js"></script>
+    <script type="module" src="scripts/recording.js"></script>
 </body>
 </html>

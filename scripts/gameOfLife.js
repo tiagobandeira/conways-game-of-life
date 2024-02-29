@@ -228,6 +228,14 @@ function criarCopiarMatriz(matriz){
 
     return matrizCopia
 }
+export function obterAlturaMatriz() {
+    return MATRIZ_GRADE.length
+}
+
+export function obterLarguraMatriz() {
+    return MATRIZ_GRADE[0].length
+}
+
 
 // ================= GRADE HTML ==========================
 

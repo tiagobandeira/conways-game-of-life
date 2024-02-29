@@ -34,6 +34,10 @@
     background-color: var(--btn-fab-bg-hover-color);
 }
 
+.btn-fab:disabled{
+    opacity: 0.4;
+}
+
 .btn-fab.active{
     rotate: 0deg;
     transition: var(--btn-fab-animation-duration) ease-in-out;
