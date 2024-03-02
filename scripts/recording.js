@@ -1,11 +1,11 @@
 import { fabButtonClickHandler } from "./fabButtonHandler.js";
 import { obterAlturaMatriz, obterLarguraMatriz } from "./gameOfLife.js";
+import { alert } from "./alert.js";
 
 var mediaRecorder;
 var IDInterval;
 var cellColor = "#6b9fb8";
 const cellSize = 20;
-
 
 
 const startRecording = () => {
@@ -34,7 +34,8 @@ const startRecording = () => {
   };
 
   mediaRecorder.onstop = () => {
-    createVideoBlob(recordedChunks);
+    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    downloadVideo(blob, "MeuVideoDoJogoDaVida");
   };
 
   mediaRecorder.start();
@@ -42,7 +43,7 @@ const startRecording = () => {
 };
 
 
-const storpRecording = () => {
+const stopRecording = () => {
   if (!mediaRecorder) {
     return
   }
@@ -50,16 +51,18 @@ const storpRecording = () => {
   clearInterval(IDInterval)
 }
 
-function createVideoBlob(recordeData) {
-  const blob = new Blob(recordeData, { type: 'video/webm' });
+function createVideoDownloadLink(blob, outputFileName = "output.webm") {
+
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  document.body.appendChild(a);
-  a.style = "display:none";
+
+  const a = document.createElement('a');
   a.href = url;
-  a.download = "imagem-gravada.webm";
+  a.download = outputFileName;
+  document.body.appendChild(a);
   a.click();
-  window.URL.revokeObjectURL(url);
+  document.body.removeChild(a);
+
+  alert("Vídeo salvo com sucesso!")
 }
 
 
@@ -83,6 +86,42 @@ function updateCanvas(ctx, canvas) {
   });
 };
 
+async function downloadVideo(blob, fileNameOutput) {
+  try {
+    // converte o vídeo para formato mp4
+    const { createFFmpeg } = window.FFmpeg;
+
+    const ffmpeg = createFFmpeg({
+      log: true,
+      corePath: 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.10.0/dist/ffmpeg-core.js'
+    });
+
+    await ffmpeg.load();
+
+    ffmpeg.FS('writeFile', 'input.webm', await fetchFile(blob));
+
+    await ffmpeg.run('-i', 'input.webm', 'output.mp4');
+
+    const data = ffmpeg.FS('readFile', 'output.mp4');
+
+    const newBlob = new Blob([data.buffer], { type: 'video/mp4' });
+    createVideoDownloadLink(newBlob, fileNameOutput + ".mp4")
+  } catch (error) {
+    console.log("Erro ao converter o vídeo: ", error)
+    createVideoDownloadLink(blob, fileNameOutput + ".webm")
+  }
+
+}
+
+function fetchFile(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = function () {
+      resolve(new Uint8Array(this.result));
+    };
+    reader.readAsArrayBuffer(blob);
+  });
+}
 
 const startRecordingButton = document.getElementById("btn-start-record");
 const stopRecordingButton = document.getElementById("btn-stop-record");
@@ -96,6 +135,6 @@ startRecordingButton.addEventListener("click", () => {
 })
 stopRecordingButton.addEventListener("click", () => {
   stopRecordingButton.classList.remove("active")
-  storpRecording()
+  stopRecording()
   fabButton.disabled = false;
 })
