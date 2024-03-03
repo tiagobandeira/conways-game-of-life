@@ -1,51 +1,51 @@
-import * as controles from "./gameOfLife.js";
+//import * as controles from "./gameOfLife.js";
 
 
 // Configurações
 
 document.getElementById("seletorImagem").addEventListener("change",()=>{
-    controles.selecionarImagemHTML()
+    selecionarImagemHTML()
 })
 
 document.getElementById("seletorTipoGrade").addEventListener("change",()=>{
-    controles.selecionarTipoGradeHTML()
+    selecionarTipoGradeHTML()
 })
 
 
 document.getElementById("chequeExibirGrade").addEventListener("change",()=>{
-    controles.vizualizarGrade()
+    vizualizarGrade()
 })
 
 
 // Controles
 
 document.getElementById("btn-rodar").addEventListener("click",()=>{
-    controles.rodar()
+    rodar()
 })
 
 document.getElementById("btn-pausar").addEventListener("click",()=>{
-    controles.pausar()
+    pausar()
 })
 
 document.getElementById("btn-reiniciar").addEventListener("click",()=>{
-    controles.reiniciar()
+    reiniciar()
 })
 
 document.getElementById("btn-limpar").addEventListener("click",()=>{
-    controles.limpar()
+    limpar()
 })
 
 document.getElementById("intervaloVelocidade").addEventListener("change",()=>{
-    controles.mudarVelocidade()
+    mudarVelocidade()
 })
 
 
 document.getElementById("btn-diminuir-zoom").addEventListener("click",()=>{
-    controles.diminuirZoom()
+    diminuirZoom()
 })
 
 document.getElementById("btn-aumentar-zoom").addEventListener("click",()=>{
-    controles.aumentarZoom()
+    aumentarZoom()
 })
 
 

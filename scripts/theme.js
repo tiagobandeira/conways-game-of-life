@@ -7,8 +7,8 @@ function obterTema(){
 }
 
 
-function escolherTema(tema=""){
 
+function escolherTema(tema=""){
 
     var chequeTema = document.getElementById("chequeTema");
     var textoChequeTema = document.getElementById("textoChequeTema");
@@ -42,3 +42,10 @@ window.addEventListener("load", (event) => {
     }
     escolherTema(tema)
 });
+
+var chequeTema = document.getElementById("chequeTema");
+
+chequeTema.addEventListener("change",()=>{
+    let tema = chequeTema.checked == false ? "light":"dark"
+    escolherTema(tema)
+})

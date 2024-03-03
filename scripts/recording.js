@@ -1,6 +1,6 @@
-import { fabButtonClickHandler } from "./fabButtonHandler.js";
-import { obterAlturaMatriz, obterLarguraMatriz } from "./gameOfLife.js";
-import { alert } from "./alert.js";
+//import { fabButtonClickHandler } from "./fabButtonHandler.js";
+//import { obterAlturaMatriz, obterLarguraMatriz } from "./gameOfLife.js";
+//import { alert } from "./alert.js";
 
 var mediaRecorder;
 var IDInterval;

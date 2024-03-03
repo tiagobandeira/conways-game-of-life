@@ -1,5 +1,5 @@
-import { vizualizarGrade, selecionarTipoGradeHTML,reiniciarGradeHTML,obterTodasPosicoesCelulasVivas } from "./gameOfLife.js";
-import { alert } from "./alert.js";
+//import { vizualizarGrade, selecionarTipoGradeHTML,reiniciarGradeHTML,obterTodasPosicoesCelulasVivas } from "./gameOfLife.js";
+//import { alert } from "./alert.js";
 
 
 export function dialogButtonClickApplyHandler(data) {

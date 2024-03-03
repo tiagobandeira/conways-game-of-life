@@ -1,5 +1,5 @@
-import { fabButtonClickHandler } from "./fabButtonHandler.js";
-import { alert } from "./alert.js";
+//import { fabButtonClickHandler } from "./fabButtonHandler.js";
+//import { alert } from "./alert.js";
 
 
 export function downloadButtonClickHandler(objectImage) {

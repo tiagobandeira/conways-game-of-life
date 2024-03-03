@@ -1,5 +1,5 @@
-import { toJSON, validateData } from "./processData.js";
-import { alert } from "./alert.js";
+// import { toJSON, validateData } from "./processData.js";
+// import { alert } from "./alert.js";
 
 export function uploadButtonClickHandler(callback){
 

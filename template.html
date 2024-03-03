@@ -9,16 +9,7 @@
     <title>Jogo Da Vida</title>
     <!-- Bootstrap CSS CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <!-- FAB Button CSS -->
-    <link rel="stylesheet" href="styles/fab-button.css">
-    <!-- Snackbar CSS -->
-    <link rel="stylesheet" href="styles/snackbar.css">
-     <!-- Dialog CSS -->
-     <link rel="stylesheet" href="styles/dialog.css">
-    <!-- Button Recorde CSS -->
-    <link rel="stylesheet" href="styles/stop-recording-button.css">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="styles/template.css">
+    <link rel="stylesheet" href="styles.min.css">
 </head>
 
 <body>
@@ -56,7 +47,7 @@
                 <li>
                     <div class="form-check form-switch">
                         <label id="textoChequeTema" for="chequeTema" class="form-check-label">Tema Claro</label>
-                        <input  id="chequeTema" onchange="escolherTema()" class="form-check-input" role="switch" type="checkbox" value="" >
+                        <input  id="chequeTema" class="form-check-input" role="switch" type="checkbox" value="" >
                     </div>
                 </li>
             </ul>
@@ -176,17 +167,7 @@
     <script defer="true" src="https://kit.fontawesome.com/2799c027de.js" crossorigin="anonymous"></script>
     
     <!-- Scripts -->
-    <script defer="true" type="module" src="scripts/gameOfLife.js"></script>
-    <script defer="true"  src="scripts/theme.js"></script>
-    <script type="module" src="scripts/fabButton.js"></script>
-    <script type="module" src="scripts/controls.js"></script>
-    <script type="module" src="scripts/uploadButton.js"></script>
-    <script type="module" src="scripts/downloadButton.js"></script>
-    <script type="module" src="scripts/dialog.js"></script>
-    <script type="module" src="scripts/recording.js"></script>
-    <script type="module" src="./registerServiceWork.js"></script>
-    <script defer="true" src="scripts/sidebar.js"></script>
-    <script defer="true" src="scripts/zoomByPinchClick.js"></script>
+    <script type="module" src="scripts.min.js"></script>
 
      <!-- FFmepg JS -->
      <script defer="true" src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.10.0/dist/ffmpeg.min.js"></script>

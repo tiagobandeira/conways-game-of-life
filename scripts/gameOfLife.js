@@ -289,7 +289,7 @@ function burcarMaiorXYImagem(posicoes){
 
 }
 
-export function reiniciarGradeHTML(largura, altura, posCelulasVivas=undefined){
+export async function reiniciarGradeHTML(largura, altura, posCelulasVivas=undefined){
 
     largura = largura || NUMERO_DE_COLUNAS;
     altura  = altura  || NUMERO_DE_LINHAS;
@@ -297,7 +297,8 @@ export function reiniciarGradeHTML(largura, altura, posCelulasVivas=undefined){
     let matriz;
 
     if (!posCelulasVivas) {
-        let imagem = MAPA_IMAGENS[buscarValorSeletorImagemHTML()]
+        const imagens = await MAPA_IMAGENS;
+        let imagem = imagens[buscarValorSeletorImagemHTML()]
         posCelulasVivas = imagem.posicoesImagem
     }
 
@@ -330,12 +331,15 @@ function buscarValorSeletorImagemHTML(){
 
 }
 
-export function selecionarImagemHTML(){
+export async function selecionarImagemHTML(){
 
     let valor = buscarValorSeletorImagemHTML();
-    let imagem = MAPA_IMAGENS[valor].posicoesImagem
-    let tipoGrade = MAPA_IMAGENS[valor].tipoGrade
-    let velocidade = MAPA_IMAGENS[valor].velocidade
+
+    const imagens  = await MAPA_IMAGENS;
+
+    let imagem = imagens[valor].posicoesImagem
+    let tipoGrade = imagens[valor].tipoGrade
+    let velocidade = imagens[valor].velocidade
     
     selecionarTipoGradeHTML(tipoGrade)
     calcularVelocidadeGeracoes(velocidade)
@@ -552,7 +556,7 @@ export const mudarVelocidade = ()=>{
 
 // ================= INICIAR JOGO ==========================
 
-import { getFileData } from "./processData.js";
+//import { getFileData } from "./processData.js";
 
 const NUMERO_DE_LINHAS = 15;
 const NUMERO_DE_COLUNAS = 15;
@@ -565,7 +569,7 @@ const obterMapaImagens = async () => {
     let promises = nomeArquivos.map(nomeArquivo => getFileData(nomeArquivo)); 
     let imagens = await Promise.all(promises);
 
-    if (!imagens[0]) { return; }
+    if (!imagens[0]) { return null; }
     
     for (let i = 0; i < imagens.length; i++) {
         let chave = nomeArquivos[i];
@@ -588,14 +592,22 @@ const IMAGEM_INICIAL = {ship:{
     exibirGrade:true,
     posicoesImagem:[[6,6],[6,9],[7,5],[8,5],[8,9],[9,5],[9,6],[9,7],[9,8]]
 }}
-const MAPA_IMAGENS = await obterMapaImagens() || IMAGEM_INICIAL
-const POSICOES_INICIAL  = MAPA_IMAGENS["ship"].posicoesImagem 
 
-definirEstadoInicial(MATRIZ_GRADE, POSICOES_INICIAL)
-criarGradeHTML(MATRIZ_GRADE);
-criarSeletorImagemHTML()
-criarSeletorTipoGradeHTML()
-vizualizarGrade()
+const MAPA_IMAGENS = (async function(){
+    const imagens = await obterMapaImagens();
+    if (!imagens) {
+        return IMAGEM_INICIAL
+    }
+    return imagens
+})();
+
+MAPA_IMAGENS.then(imagens=>{
+    definirEstadoInicial(MATRIZ_GRADE, imagens["ship"].posicoesImagem)
+    criarGradeHTML(MATRIZ_GRADE);
+    criarSeletorImagemHTML()
+    criarSeletorTipoGradeHTML()
+    vizualizarGrade()
+});
 
 export const iniciar = () => {
     VELOCIDADE = calcularVelocidadeGeracoes();

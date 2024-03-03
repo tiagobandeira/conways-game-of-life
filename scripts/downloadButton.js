@@ -1,5 +1,5 @@
-import { downloadButtonClickHandler } from "./downloadButtonHandler.js";
-import { obterTodasPosicoesCelulasVivas } from "./gameOfLife.js";
+//import { downloadButtonClickHandler } from "./downloadButtonHandler.js";
+//import { obterTodasPosicoesCelulasVivas } from "./gameOfLife.js";
 
 const btnDownload = document.getElementById("btn-dowload");
 btnDownload.addEventListener("click",()=>{
