@@ -7,9 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>Jogo Da Vida</title>
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.min.css">
+
+    <link rel="stylesheet" href="styles/dialog.css">
+    <link rel="stylesheet" href="styles/fab-button.css">
+    <link rel="stylesheet" href="styles/snackbar.css">
+    <link rel="stylesheet" href="styles/stop-recording-button.css">
+    <link rel="stylesheet" href="styles/template.css">
+    <link rel="stylesheet" href="styles/controls.css">
+    <link rel="stylesheet" href="styles/form.css">
 </head>
 
 <body>
@@ -54,7 +59,7 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://github.com/tiagobandeira/conways-game-of-life" class="btn code"><i class="fa-brands fa-github"></i>Código</a>
+                    <a href="https://github.com/tiagobandeira/conways-game-of-life" class="btn code" target="_blank"><i class="fa-brands fa-github"></i>Código</a>
                 </li>
             </ul>
            
@@ -85,7 +90,7 @@
                     <button id="btn-limpar" type="button" class="btn btn-dark" > <i class="fa-solid fa-trash"></i></button>
                     <button id="btn-grid-options" type="button" class="btn btn-dark" > 
                         <i>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" style="margin-bottom: 3px;" class="bi bi-grid-fill" viewBox="0 0 16 16">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" style="margin-top: 3px;" class="bi bi-grid-fill" viewBox="0 0 16 16">
                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
                             </svg>
                         </i>
@@ -119,56 +124,48 @@
 
     <!-- Dialog Grid Options -->
     <div class="dialog">
-        <div class="dialog-content" >
+        <div class="dialog-mb">
             <div class="btn-group-alert">
-                <button id="btn-close-dialog" class="btn alert-close"><i class="fa-solid fa-close"></i> </button>
-                <button id="btn-apply-dialog" class="btn alert-close">Aplicar</i> </button>
+                <button id="btn-close-dialog" class="btn"><i class="fa-solid fa-close"></i> </button>
+                <button id="btn-apply-dialog" class="btn">Aplicar</i> </button>
             </div>
-            <div class="d-grid gap-4" style="padding: 15px;"> 
-                <p>Opções de grade</p>
-                <div class="row">
-                    <div class="col-6">
+            <div class="dialog-content" style="padding: 10px;"> 
+                <p style="margin-top: 0;">Opções de grade</p>
+                <div class="item-numbers">
+                    <div class="item">
                         <label for="input-grid-width" class="form-label">Largura</label>
                         <input id="input-grid-width" type="number" min="1" max="100" value="15" class="form-control" id="validationDefault01" >
                     </div>
-                    <div class="col-6">
+                    <div class="item">
                         <label for="input-grid-height" class="form-label">Altura</label>
                         <input id="input-grid-height" type="number" min="1" max="100" value="15" class="form-control" id="validationDefault01">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <label for="grid-type" class="form-label">Tipo de Grade</label>
-                        <select id="grid-type" class="form-select" aria-label="Tipo de Grade" name="">
-                            <option value="circular">Circular</option>
-                            <option value="limitada">Limitada</option>
-                            <option value="ilimitada">Ilimitada</option>
-                        </select>
-                    </div>
+                <div class="item">
+                    <label for="grid-type" class="form-label">Tipo de Grade</label>
+                    <select id="grid-type" class="form-select" aria-label="Tipo de Grade" name="">
+                        <option value="circular">Circular</option>
+                        <option value="limitada">Limitada</option>
+                        <option value="ilimitada">Ilimitada</option>
+                    </select>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-check form-switch">
-                            <label for="grid-visibility" class="form-check-label">Exibir Grade</label>
-                            <input  id="grid-visibility" class="form-check-input" role="switch" type="checkbox" value=""  checked>
-                        </div>
-                    </div>
+                <div class="form-check form-switch">
+                    <label for="grid-visibility" class="form-label form-check-label">Exibir Grade</label>
+                    <input  id="grid-visibility" class="form-check-input" role="switch" type="checkbox" value=""  checked>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="overlay"></div>
     <div class="overlay-btn-fab"></div> 
-
-    <!-- Bootstrap JS -->
-    <script defer="true" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     
     <!-- Font Awesome JS --> 
     <script defer="true" src="https://kit.fontawesome.com/2799c027de.js" crossorigin="anonymous"></script>
     
     <!-- Scripts -->
     <script type="module" src="scripts.min.js"></script>
-
+    
      <!-- FFmepg JS -->
      <script defer="true" src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.10.0/dist/ffmpeg.min.js"></script>
 </body>
