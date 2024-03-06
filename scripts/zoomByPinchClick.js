@@ -4,8 +4,8 @@
 
 var grade = document.getElementById("grade");
 
-grade.addEventListener("touchstart", touchStartHandler)
-grade.addEventListener("touchmove", touchMoveHandler)
+grade.addEventListener("touchstart", touchStartHandler, {passive:true})
+grade.addEventListener("touchmove", touchMoveHandler, {passive:true})
 
 var startingDistance;
 var finalDistance;

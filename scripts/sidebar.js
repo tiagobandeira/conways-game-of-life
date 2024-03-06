@@ -13,9 +13,9 @@ var overlay = document.querySelector(".overlay");
 var dismiss = document.querySelector("#dismiss");
 
 
-sidebar.addEventListener("touchstart", capturarInicioMovimentoToque, false);
-sidebar.addEventListener("touchmove", capturarMovimentoToque, false);
-sidebar.addEventListener("touchend", capturarFimMovimentoToque, false);
+sidebar.addEventListener("touchstart", capturarInicioMovimentoToque, {passive:true});
+sidebar.addEventListener("touchmove", capturarMovimentoToque, {passive:true});
+sidebar.addEventListener("touchend", capturarFimMovimentoToque, {passive:true});
 
 var xInicial = null;
 
