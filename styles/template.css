@@ -12,6 +12,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    font-display: swap;
     margin: 0px;
     background: var(--bg-color);
 }
