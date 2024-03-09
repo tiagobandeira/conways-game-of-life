@@ -1,0 +1,28 @@
+/* HTML: <div class="loader"></div> */
+.loader-group{
+  display: flex;
+  justify-content: space-between;
+  column-gap: 1.8rem;
+}
+.loader {
+  border-width: 3px;
+  background: 
+    linear-gradient(90deg,#0001 33%,#0005 50%,#0001 66%)
+    #455a64;
+  background-size:300% 100%;
+  animation: l1 1s infinite linear;
+}
+#nav-top .loader {
+   width: 40px;
+  height: 38px;
+  border-width: 3px;
+}
+@keyframes l1 {
+  0% {background-position: right}
+}
+@media (max-width: 768px) {
+  .loader-group{
+    width: 80%;
+    column-gap: .5rem;
+  }
+}
