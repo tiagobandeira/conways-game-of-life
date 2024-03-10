@@ -1,15 +1,10 @@
-var loaderGroup = document.querySelector(".loader-group")
-var loaders = document.querySelectorAll(".loader")
-var btns = document.querySelectorAll(".btn")
+var btnLoaders = document.querySelectorAll(".btn-loader")
+
 window.addEventListener("DOMContentLoaded",()=>{
     setTimeout(() => {
-        // loaderGroup.remove()
-    loaders.forEach(loader => {
-        loader.classList.remove("loader")
-    });
-    btns.forEach(btn=>{
-        btn.style.display = "block";
-    })
-    }, 1000);
-    
+        btnLoaders.forEach(btn => {
+            btn.classList.remove("btn-loader")
+        });
+       
+    }, 400);  
 })
