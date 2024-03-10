@@ -328,6 +328,7 @@ table, tr, td{
     display: flex; 
     justify-content: center; 
     align-items: center;
+    height: 48.4px;
 }
 
 #nav-footer .btn {
@@ -340,6 +341,7 @@ table, tr, td{
 #nav-top{
     display: flex;
     justify-content: space-between;
+    height: 37.85px;
 }
 
 #nav-top .btn{
@@ -372,4 +374,5 @@ table, tr, td{
     color: #fff !important;
     padding: 0.6rem 0.76rem;
     border-width: 3px;
+    display: none;
 }
