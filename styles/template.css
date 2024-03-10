@@ -376,3 +376,10 @@ table, tr, td{
     border-width: 3px;
     display: none;
 }
+.fa-solid, .icon-grid{
+    transition: .3s;
+    scale: 0;
+}
+.icon-grid{
+    display: none;
+}
