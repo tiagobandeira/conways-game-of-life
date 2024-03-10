@@ -15,7 +15,7 @@
   animation: l1 0.5s infinite linear;
 }
 .btn-loader>i{
-  opacity: 0;
+  display: none;
 }
 #nav-top .btn-loader{
   width: 40px;
@@ -25,6 +25,8 @@
   --loader-btn-bg-color1: #263238;
   --loader-btn-bg-color2: #212c31;
   --loader-btn-bg-color3: #263238;
+  width: 69.37px;
+  height: 48.4px;
 }
 @keyframes l1 {
   0% {background-position: right}
