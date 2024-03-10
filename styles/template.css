@@ -272,6 +272,7 @@ a.code:hover {
         column-gap: 4.5rem;
         letter-spacing: -1px;
         color: var(--cell-bg-color);
+        visibility: hidden;
     }
     
 }
