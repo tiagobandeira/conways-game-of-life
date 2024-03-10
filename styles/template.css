@@ -5,9 +5,7 @@
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&display=swap";
 
 :root{
-    --text-color: #999;
     color-scheme: dark light;
-    
 }
 
 body {
@@ -15,10 +13,12 @@ body {
     font-display: swap;
     margin: 0px;
     background: var(--bg-color);
+    color: var(--text-color);
 }
 
 .light-theme{
     color-scheme: light;
+    --text-color: #313030;
     --bg-color: #fafafa;
     --nav-top-color: #fff;
     --grid-color: #263238;
@@ -50,7 +50,6 @@ p {
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
-    color: var(--text-color);
 }
 
 a,
@@ -221,6 +220,9 @@ a.code:hover {
     justify-content: space-between;
     flex-grow: 1;
 }
+#title-mb{
+    display: none;
+}
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -263,6 +265,13 @@ a.code:hover {
     .overlay.active {
         display: block;
         opacity: 1;
+    }
+    #title-mb{
+        display: block;
+        align-items: center;
+        column-gap: 4.5rem;
+        letter-spacing: -1px;
+        color: var(--cell-bg-color);
     }
     
 }
@@ -341,6 +350,7 @@ table, tr, td{
 #nav-top{
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 37.85px;
 }
 
@@ -383,3 +393,4 @@ table, tr, td{
 .icon-grid{
     display: none;
 }
+
