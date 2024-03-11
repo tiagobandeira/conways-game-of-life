@@ -113,13 +113,13 @@ a:focus {
     line-height: 1.2;
 }
 
-#sidebar ul.controls {
+#sidebar .controls {
     background: #263238;
-    padding: 4px 0;
+    padding: 14px 0;
     border-bottom: 1px solid rgb(55 71 79 / 37%);
 }
 
-#sidebar ul p {
+#sidebar .controls p {
     color: rgb(255 255 255 / 55%);
     padding: 8px;
     margin: auto;
@@ -145,7 +145,7 @@ a:focus {
 }
 
 
-#sidebar ul li {
+#sidebar .controls .item {
     padding: 10px;
     font-size: 1.0em;
     display: flex;
@@ -180,11 +180,15 @@ a:focus {
     transition: all 0.5s ease-in-out;
 }
 
-ul.CTAs {
+.CTAs {
     padding: 20px;
 }
 
-ul.CTAs a {
+.CTAs .item{
+    margin: 10px;
+}
+
+.CTAs a {
     text-align: center;
     font-size: 1em !important;
     display: block;
@@ -192,7 +196,7 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-ul.CTAs a i{
+.CTAs a i{
     margin: 3px;
 }
 
@@ -236,7 +240,7 @@ a.code:hover {
         z-index: 999;
     }
 
-    #sidebar ul li {
+    #sidebar .controls .item {
         font-size: 1.1em;
     }
 

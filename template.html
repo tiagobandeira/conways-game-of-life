@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -29,39 +29,39 @@
                 <h4>Jogo Da Vida</h4>
             </div>
 
-            <ul class="list-unstyled controls">
+            <div class="list-unstyled controls">
                 <p>Configurações</p>
-                <li>
+                <div class="item">
                     <label for="seletorTipoGrade" class="form-label">Tipo de Grade</label>
                     <select id="seletorTipoGrade" class="form-select" aria-label="Tipo de Grade" name=""></select>
-                </li>
-                <li>
+                </div>
+                <div class="item">
                     <label for="seletorImagem" class="form-label">Imagem</label>
                     <select id="seletorImagem" class="form-select" aria-label="Imagem" name=""></select>
-                </li>
-                <li>
+                </div>
+                <div class="item">
                     <label for="intervaloVelocidade" class="form-label">Velocidade</label>
                     <input id="intervaloVelocidade" type="range" class="form-range" min="1" max="10" step="1">
-                </li>
-                <li>
+                </div>
+                <div class="item">
                     <div class="form-check form-switch">
                         <label for="chequeExibirGrade" class="form-check-label">Exibir Grade</label>
                         <input  id="chequeExibirGrade" class="form-check-input" role="switch" type="checkbox" value=""  checked>
                     </div>
-                </li>
-                <li>
+                </div>
+                <div class="item">
                     <div class="form-check form-switch">
                         <label id="textoChequeTema" for="chequeTema" class="form-check-label">Tema Claro</label>
                         <input  id="chequeTema" class="form-check-input" role="switch" type="checkbox" value="" >
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
 
-            <ul class="list-unstyled CTAs">
-                <li>
+            <div class="CTAs">
+                <div class="item">
                     <a href="https://github.com/tiagobandeira/conways-game-of-life" class="btn code" target="_blank"><i class="fa-brands fa-github"></i>Código</a>
-                </li>
-            </ul>
+                </div>
+            </div>
            
         </nav>
        
@@ -69,11 +69,11 @@
         <div id="content">
             <!-- Navbar Top -->
             <nav id="nav-top" class="navbar navbar-expand-lg navbar-dark justify-content-between">
-                <button type="button" id="sidebar-collapse" class="btn btn-dark btn-loader"><i class='fa-solid fa-sliders'></i></button>
+                <button type="button" id="sidebar-collapse" class="btn btn-dark btn-loader" aria-label="Menu de Configurações"><i class='fa-solid fa-sliders'></i></button>
                 <h3 id="title-mb">JOGO DA VIDA</h3>
                 <div class="btn-group"  role="group" aria-label="Zoom">
-                    <button id="btn-diminuir-zoom" type="button" class="btn btn-dark btn-loader" ><i class='fa-solid fa-magnifying-glass-minus'></i></button>
-                    <button id="btn-aumentar-zoom" type="button" class="btn btn-dark btn-loader" ><i class='fa-solid fa-magnifying-glass-plus'></i></button>
+                    <button id="btn-diminuir-zoom" type="button" class="btn btn-dark btn-loader" aria-label="Diminuir Zoom"><i class='fa-solid fa-magnifying-glass-minus'></i></button>
+                    <button id="btn-aumentar-zoom" type="button" class="btn btn-dark btn-loader" aria-label="Aumentar Zoom"><i class='fa-solid fa-magnifying-glass-plus'></i></button>
                 </div>
             </nav>
             <!-- Table -->
@@ -83,11 +83,11 @@
             <!-- Navbar Bottom -->
             <nav id="nav-footer" class="navbar navbar-light">
                 <div class="btn-group btn-controls"  role="group" aria-label="Controls">
-                    <button id="btn-rodar" type="button" class="btn btn-dark btn-loader"> <i class="fa-solid fa-play"></i></button>
-                    <button id="btn-pausar" type="button" class="btn btn-dark btn-loader" > <i class="fa-solid fa-stop"></i></button>
-                    <button id="btn-reiniciar" type="button" class="btn btn-dark btn-loader" > <i class="fa-solid fa-arrow-rotate-left"></i></button>
-                    <button id="btn-limpar" type="button" class="btn btn-dark btn-loader" > <i class="fa-solid fa-trash"></i></button>
-                    <button id="btn-grid-options" type="button" class="btn btn-dark btn-loader" > 
+                    <button id="btn-rodar" type="button" class="btn btn-dark btn-loader" aria-label="Play"> <i class="fa-solid fa-play"></i></button>
+                    <button id="btn-pausar" type="button" class="btn btn-dark btn-loader" aria-label="Pausar"> <i class="fa-solid fa-stop"></i></button>
+                    <button id="btn-reiniciar" type="button" class="btn btn-dark btn-loader" aria-label="Reiniciar Grade"> <i class="fa-solid fa-arrow-rotate-left"></i></button>
+                    <button id="btn-limpar" type="button" class="btn btn-dark btn-loader" aria-label="Limpar Grade"> <i class="fa-solid fa-trash"></i></button>
+                    <button id="btn-grid-options" type="button" class="btn btn-dark btn-loader" aria-label="Opções de Grade"> 
                         <i class="icon-grid">
                             <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" style="margin-top: 3px;" class="bi bi-grid-fill" viewBox="0 0 16 16">
                                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5z"/>
@@ -102,22 +102,22 @@
     <div class="btn-fab-group">
         <div class="btn-fab-item">
             <label for="btn-start-record">Gravar</label>
-            <button id="btn-start-record"><i class="fa-solid fa-video"></i></button>
+            <button id="btn-start-record" aria-label="Iniciar Gravação de Vídeo"><i class="fa-solid fa-video"></i></button>
         </div>
         <div class="btn-fab-item">
             <label for="btn-dowload">Baixar</label>
-            <button id="btn-dowload"><i class="fa-solid fa-file-arrow-down"></i></button>
+            <button id="btn-dowload" aria-label="Baixar Padrão de Imagem"><i class="fa-solid fa-file-arrow-down"></i></button>
         </div>
         <div class="btn-fab-item">
             <label for="btn-upload">Subir Imagem</label>
-            <button id="btn-upload"><i class="fa-solid fa-upload"></i></button>
-            <input id="inputFile" type="file" name="" accept=".json"  style="display: none;">
+            <button id="btn-upload" aria-label="Enviar Padrão de Imagem"><i class="fa-solid fa-upload"></i></button>
+            <input id="inputFile" type="file" name="" accept=".json" placeholder="Imagem-Padrão"  style="display: none;">
         </div>
     </div>
-    <button class="btn-fab">
+    <button class="btn-fab" aria-label="Mais Opções">
         <i class="fa-solid fa-plus fa-floppy-disk btn-icon"></i>
     </button>
-    <button id="btn-stop-record">
+    <button id="btn-stop-record" aria-label="Para Gravação">
         <i class="fa-solid fa-stop"></i>
     </button>
 
@@ -125,8 +125,8 @@
     <div class="dialog">
         <div class="dialog-mb">
             <div class="btn-group-alert">
-                <button id="btn-close-dialog" class="btn btn-loader"><i class="fa-solid fa-close"></i> </button>
-                <button id="btn-apply-dialog" class="btn btn-loader">Aplicar</i> </button>
+                <button id="btn-close-dialog" class="btn btn-loader" aria-label="Feixar Diálogo"><i class="fa-solid fa-close"></i> </button>
+                <button id="btn-apply-dialog" class="btn btn-loader" aria-label="Aplicar Mudanças">Aplicar</i> </button>
             </div>
             <div class="dialog-content" style="padding: 10px;"> 
                 <p style="margin-top: 0;">Opções de grade</p>
